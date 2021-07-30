@@ -1,0 +1,2463 @@
+{% extends "base.html" %}
+
+{% set title = 'Graql Group' %}
+
+{% block layout %}
+
+
+   
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row px-3 py-3">
+    <div class="col-3 ">
+        <br>
+            <h1>Group Grakn</h1>
+        <br>
+        <div class="row">            
+            <div class="btn-group btn-group-justified" role="group" aria-label="Basic radio toggle button group">                
+                    
+                <input type="radio" class="btn-check " name="btnradio" onclick="handleGType(this);" id="btnradio1" autocomplete="off" value="Type 1" >
+                <label class="btn btn-primary" for="btnradio1">Type 1</label>
+                
+                <input type="radio" class="btn-check" name="btnradio" disabled onclick="handleGType(this);" id="btnradio2" autocomplete="off" value="Type 2">
+                <label class="btn btn-primary" for="btnradio2">Type 2</label>
+            
+                <input type="radio" class="btn-check" name="btnradio" disabled onclick="handleGType(this);" id="btnradio3" autocomplete="off" value="Type 3">
+                <label class="btn btn-primary" for="btnradio3">Type 3</label>
+                
+                <input type="radio" class="btn-check" name="btnradio" disabled onclick="handleGType(this);" id="btnradio4" autocomplete="off" value="Type 4">
+                <label class="btn btn-primary" for="btnradio4">Type 4</label>
+
+                <input type="radio" class="btn-check" name="btnradio" onclick="handleGType(this);" id="btnradio5" autocomplete="off" value="Other">
+                <label class="btn btn-primary" for="btnradio5">Other</label>   
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-floating " id="form1">
+                    <select class="form-select bg-secondary" id="gfMain" aria-label="Select a Main Leaf" onchange="ClickSelect1(this)">
+                    </select>
+                    <label for="gfMain" id="gfMainLabel">Select a Main Leaf</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-floating " id="form2">
+                    <select class="form-select bg-secondary" id="gfSecond" aria-label="Second Leaf" onchange="ClickSelect2(this)">
+                    </select>
+                    <label for="gfSecond" id="gfSecondLabel">Second Leaf</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating "  id="form3">
+                    <select class="form-select bg-secondary" id="gfRole" aria-label="Linking Role" onchange="ClickSelect3(this)">
+                    </select>
+                    <label for="gfRole" id="gfRoleLabel">Linking Role</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">            
+            <div class="col">
+                <div class="form-floating " id="form4">
+                    <select class="form-select bg-secondary" id="gfThird" aria-label="Third Leaf" onchange="ClickSelect4(this)">
+                    </select>
+                    <label for="gfThird" id="gfThirdLabel">Third Leaf</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating "  id="form5">
+                    <select class="form-select bg-secondary" id="gfRole2" aria-label="Select a Linking Role" onchange="ClickSelect5(this)">
+                    </select>
+                    <label for="gfRole2" id="gfRole2Label">Linking Role</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">            
+            <div class="col">
+                <div class="form-floating " id="form11">
+                    <select class="form-select bg-secondary" id="gfFourth" aria-label="Select a Fourth Leaf" onchange="ClickSelect11(this)">
+                    </select>
+                    <label for="gfFourth" id="gfFourthLabel">Fourth Leaf</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating "  id="form12">
+                    <select class="form-select bg-secondary" id="gfRole4" aria-label="Select a Linking Role" onchange="ClickSelect12(this)">
+                    </select>
+                    <label for="gfRole4" id="gfRole4Label">Linking Role</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">            
+            <div class="col">
+                <div class="form-floating " id="form13">
+                    <select class="form-select bg-secondary" id="gfFifth" aria-label="Select a Fifth Leaf" onchange="ClickSelect13(this)">
+                    </select>
+                    <label for="gfFifth" id="gfFifthLabel">Fifth Leaf</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating "  id="form14">
+                    <select class="form-select bg-secondary" id="gfRole5" aria-label="Select a Linking Role" onchange="ClickSelect14(this)">
+                    </select>
+                    <label for="gfRole5" id="gfRole5Label">Linking Role</label>
+                </div>
+            </div>
+        </div>
+            
+        
+        
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-floating " id="formG1">
+                    <select class="form-select bg-secondary" id="gfGroup1" aria-label="Group to Link" onchange="ClickSelectG1(this)">
+                    </select>
+                    <label for="gfGroup1" id="gfGroup1Label">Group to Link</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <div class="form-floating "  id="formG2">
+                    <select class="form-select bg-secondary" id="gfGroup2" aria-label="Approach" onchange="ClickSelectG2(this)">
+                        <option selected value="distinct">Distinct Values</option>                        
+                    </select>
+                    <label for="gfGroup2" id="gfGroup2Label">Approach</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-floating "  id="formG3">
+                    <select class="form-select bg-secondary" id="gfGroup3" aria-label="Attribute" onchange="ClickSelectG3(this)">
+                    </select>
+                    <label for="gfGroup3" id="gfGroup3Label">Attribute</label>
+                </div>
+            </div>
+        </div>              
+    </div>
+        
+    <div class="col-6 ">
+        
+        <div class="row mb-5">
+            <div class="group_def_svg svg-container" id="group_def_svg">
+            </div>
+        </div>
+        
+      
+    </div>
+    <div class="col-3 ">
+        <div class="row ">
+            <br>
+            <h3>Definition</h3>
+            <br>
+            <div class="mt-3">
+                <label for="Group_name" class="form-label">Group Name</label>
+                <input type="text" class="form-control bg-secondary" onchange="group_label(this.value)" id="Group_name" placeholder="Enter a Group Name ...">
+              </div>
+        </div>
+        <div class="row mt-3">    
+            <div class="col-6" >        
+                <div class="form-floating "  id="form6">
+                        <select class="form-select bg-secondary" id="CList" aria-label="Fill Colour List" onchange="ClickSelect6(this)">
+                        </select>
+                        <label for="CList" id="CListLabel">Fill Colour List</label>                    
+                </div>
+            </div>
+            <div class="col-6" > 
+                <div class="form-floating" id="form7">
+                    <select class="form-select bg-secondary" id="CItem" aria-label="Fill Colour Item" onchange="ClickSelect7(this)">
+                    </select>
+                    <label for="CItem" id="CItemLabel">Fill Colour Item</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">    
+            <div class="col-6" >        
+                <div class="form-floating "  id="form8">
+                        <select class="form-select bg-secondary" id="SCList" aria-label="Stroke Colour List" onchange="ClickSelect8(this)">
+                        </select>
+                        <label for="SCList" id="SCListLabel">Stroke Colour List</label>                    
+                </div>
+            </div>
+            <div class="col-6" > 
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-floating" id="form9">
+                            <select class="form-select bg-secondary" id="SCItem" aria-label="Stroke Colour Item" onchange="ClickSelect9(this)">
+                            </select>
+                            <label for="SCItem" id="SCItemLabel">Item</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating" id="form10">
+                            <select class="form-select bg-secondary" id="SCWidth" aria-label="Stroke Width" onchange="ClickSelect10(this)">
+                            </select>
+                            <label for="SCWidth" id="SCWidthLabel">Stroke</label>
+                        </div>
+                    </div>
+
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="row mt-3 mb-3">
+
+            <div class="d-grid  col-4">
+                <button type="button" id='constraintButton' class="btn btn-secondary btn-sm " onclick='setConstraintBttn()'  >Use Constraints</button>
+            </div>
+            <div class="d-grid  col-4">
+
+                <div class="form-floating "  id="formML">
+                    <select class="form-select form-select-sm  bg-secondary" id="constraintMain" aria-label="Align Main" onchange="establish_constraints()">
+                        <option selected value="indent">Indent</option>
+                        <option value="level">Level</option>
+                        <option value="flip">Flip</option>
+                        <option value="free">Freeform</option>
+                    </select>
+                    <label for="constraintMain" id="constraintMainLabel">Align Main</label>
+                </div>
+                
+            </div>
+            <div class="d-grid  col-4">
+
+                <div class="form-floating "  id="formSL">
+                    <select class="form-select form-select-sm  bg-secondary" id="constraintSecond" aria-label="Align Leaves" onchange="establish_constraints()">
+                        <option selected value="vcentre">Centres</option>
+                        <option value="vleft">Left Edges</option>
+                        <option value="vright">Right Edges</option>
+                        <option value="vhoriz">Horizontal</option>
+                    </select>
+                    <label for="constraintSecond" id="constraintSecondLabel">Align Leaves</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" id='Def_Group' class="btn btn-primary  me-md-2" onclick='DefineGroups()' disabled >Define Group</button>
+        </div>
+
+        
+        <div class="row border mt-3">
+            <div class="defined_svg svg-container" id="defined_svg">
+            </div>
+        </div>
+        
+      
+    </div>
+  </div>
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/tgdwyer/WebCola/WebCola/cola.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static' , filename='visual/Graph_Define8.js') }}" crossorigin='anonymous'></script>
+<script type="text/javascript" src="{{ url_for('static' , filename='Fetch.js') }}" crossorigin='anonymous'></script>
+    
+<script>   
+    
+    //##################################################################################
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // Structure of Initialise:
+    //      A. Load Data
+    //      B. Setup SVG
+    //      C. Setup Colour Themes and Variables
+    //      D. Reset Form
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //      A Load the Data, and Setup the Global Datastructures
+    //----------------------------------------------------------------------------------
+    console.log('we are waiting for the JS to start up')
+
+    // get data
+    var colaGraph = {}, theme = {};
+    colaGraph = {{ colagraph | tojson }};
+    console.log('============ import cola =======')
+    console.log('colagraph is ', colaGraph)
+    // import Grakn data
+    var colourlist = {{ colorlist | tojson }};
+    var theme = {{ theme | tojson }};
+    console.log('them is ', theme)
+
+    // setup data
+    var G_nodes = colaGraph['basic']['nodes']
+    var G_links = colaGraph['basic']['links']
+    var G_Types = colaGraph['basic']['G_types']
+    var G_Grouped = colaGraph['grouped']
+    var g_G_nodes = [], g_G_links = [], g_G_groups=[], g_G_constraints = []
+    if ('nodes' in G_Grouped) {g_G_nodes = G_Grouped['nodes']}
+    if ('links' in G_Grouped) {g_G_links = G_Grouped['links']}
+    if ('groups' in G_Grouped) {g_G_groups = G_Grouped['groups']}
+    if ('constraints' in G_Grouped) {g_G_constraints = G_Grouped['constraints']}
+    console.log('ssssssssssssetup the grouped records', G_Grouped)    
+    
+    var G_List = G_Types['entity'].concat(G_Types['attribute'], G_Types['relation'])
+    var G_Schema_List = G_Types['schema']
+    var G_Schema_Down = []
+    var State = {}
+    console.log(G_Schema_List)
+
+    // data to hold the force graph group being defined, initially null
+    var defined = []
+    var graph = {}
+    var l_nodes=[], l_links=[], l_groups =[], l_constraints = [];    
+    graph['nodes'] = l_nodes
+    graph['links'] = l_links
+    graph['groups'] = l_groups
+    graph['constraints'] = l_constraints
+    // force graph define view
+    var g_def = {}
+    // selected index in groups list control
+    var selected_index = 0
+    
+    // create a list of unique G_names with down relations
+    for(var i=0; i<G_Schema_List.length; i++) {
+        var elem = G_Schema_List[i]
+        var source = elem['source_name']
+        if (!G_Schema_Down.includes(source)) {
+            G_Schema_Down.push(source)
+        }
+    }
+
+    
+    //----------------------------------------------------------------------------------
+    //
+    //(function () {
+        theme_name = localStorage.getItem('theme');
+        let r = document.querySelector(':root');
+        let rs = getComputedStyle(r);
+        console.log('======================== Colours ========================')
+        console.log('--bs-primary  is -> ', rs.getPropertyValue('--bs-primary'))
+        console.log('--bs-secondary  is -> ', rs.getPropertyValue('--bs-secondary'))
+        console.log('--bs-success  is -> ', rs.getPropertyValue('--bs-success'))
+        console.log('--bs-info  is -> ', rs.getPropertyValue('--bs-info'))
+        console.log('--bs-warning  is -> ', rs.getPropertyValue('--bs-warning'))
+        console.log('--bs-danger  is -> ', rs.getPropertyValue('--bs-danger'))
+        console.log('--bs-light  is -> ', rs.getPropertyValue('--bs-light'))
+        console.log('--bs-dark  is -> ', rs.getPropertyValue('--bs-dark'))
+    //}) ();
+
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //      B. Setup SVG's and constraints
+    //----------------------------------------------------------------------------------
+    // add svg for the define function -left side of screen
+    var screen_svgContainer = d3.select("#group_def_svg");
+    var screen_svgWidth = parseInt(screen_svgContainer.style("width"),10);     
+    var screen_svgHeight = parseInt(screen_svgWidth * 1.044); 
+    var constraintButton = document.getElementById("constraintButton")
+    // default group spacing
+    var group_x = 60
+    var group_y = 40
+    var group_lay = 1; // attributes down, roles are up, could be -1 to reverse layout
+    var useConstraints = false;
+    console.log('svg width is -> ',)
+    console.log('svg width is -> ',)
+    
+    
+
+    var screen_svg = d3.select("#group_def_svg")
+        .append("svg")
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("viewBox", "0 0 " + screen_svgWidth.toString() + ' ' + screen_svgHeight.toString())
+        .classed('svg-container-small', true)
+        .call(d3.zoom().on("zoom", function () {
+            screen_svg.attr("transform", d3.event.transform)
+        }))
+        .on("dblclick.zoom", null)
+        .append("g");
+        //.attr("transform", "translate(-590, -320)");
+
+    
+
+    console.log('screen svg setup')
+
+    // svg on right side of screen
+    var defined_svg = d3.select("#defined_svg")
+        .append("svg")
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("viewBox", "0 0 300 300")
+        .classed('svg-container-small', true)
+        .call(d3.zoom().on("zoom", function () {
+            screen_svg.attr("transform", d3.event.transform)
+        }))
+        .append("g");
+
+    console.log('defined_svg  setup')
+
+  
+    
+    
+
+    function setConstraintBttn() {
+        if (useConstraints) {
+            //dissolve constraints
+            console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            console.log('dissolve the constraints here ',constraintButton)
+            console.log('value -> ',constraintButton.value)
+            console.log('innerHTML -> ',constraintButton.innerHTML)
+            document.getElementById("formML").style.visibility = "hidden";
+            document.getElementById("formSL").style.visibility = "hidden";
+            var input_constraints = []
+            visualise_group(input_constraints)  
+            useConstraints = false;
+            constraintButton.innerHTML  ='Use Constraints'
+        } else {
+            // setup constraints
+            console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            console.log('setup the constraints here', constraintButton)
+            console.log('value -> ',constraintButton.value)
+            console.log('innerHTML -> ',constraintButton.innerHTML)
+            document.getElementById("formML").style.visibility = "visible";
+            document.getElementById("formSL").style.visibility = "visible";
+            console.log('d3cola is -> ', d3cola)
+            establish_constraints()
+            useConstraints = true;
+            constraintButton.innerHTML  = 'Remove Constraints'
+        }
+    }
+    
+
+    function establish_constraints() {
+        var return_list = []
+        var local_nodes = get_xy_distance(screen_svg)
+        var main_leaf = {}, second_leaves =[], g_main = {}
+        var num_down = 0, num_up=0, num_horiz =0
+
+        var local_main_select = document.getElementById('constraintMain')
+        var local_second_select = document.getElementById('constraintSecond')
+        var shape_main = local_main_select.value
+        var shape_second = local_second_select.value
+
+        for (var i=0; i<local_nodes.length; i++) {
+            var node = local_nodes[i]
+            if(node['constraint_type'] == 'main') {
+                main_leaf = node
+            }
+            if(node['constraint_type'] == 'leaf') {
+                second_leaves.push(node)
+            }
+            if(node['constraint_type'] == 'g_main') {
+                g_main = node
+            }
+        }
+        console.log('==== IN Set Constraints ==================')
+        console.log('main is -> ', main_leaf)
+        console.log('main constraints are -> ',shape_main)
+        console.log('second leaves are ', second_leaves)
+        console.log('second constraints are -> ',shape_second)
+        // create valid constraints list for main and second leaves
+        var align_x = {
+            "type": "alignment",
+            "axis": "x",
+            "offsets": [], "g_type": "local", "c_type": "align_x"
+        }
+        var align_y = {
+            "type": "alignment",
+            "axis": "y",
+            "offsets": [], "g_type": "local", "c_type": "align_y"
+        }
+        var offsets_in_x = [], offsets_in_y = []
+        var offset_x = 0
+        
+        var main_layer_x = {}, main_layer_y = {}        
+        if (shape_main == 'flip') {
+            group_lay = group_lay * -1
+        }
+        var main_leaf_index = main_leaf['index']
+        var main_leaf_type = main_leaf['type']
+        if (shape_main == 'indent') {
+            offset_x = group_x
+        }
+        if (shape_main == 'level') {
+            offset_x = 0
+            main_layer_x['node'] = main_leaf_index
+            main_layer_x['offset'] = offset_x
+            offsets_in_x.push(main_layer_x)
+        }
+        
+        main_layer_y['node'] = main_leaf_index
+        main_layer_y['offset'] = 0
+        offsets_in_y.push(main_layer_y)
+        for (var j=0; j<second_leaves.length; j++) {
+            var local_second = second_leaves[j]
+            var local_second_index = local_second['index']
+            var local_second_type = local_second['type']
+            var local_second_width = local_second['width']
+            var local_x = {'axis':'x', 'left': main_leaf_index, 'right': local_second_index, "g_type": "local", "c_type": "from_to"} //, "equality":"true"
+            var local_y = {'axis':'y', 'left': main_leaf_index, 'right': local_second_index, "g_type": "local", "c_type": "from_to"} //, "equality":"true"
+            var align_x_layer = {}, align_y_layer = {}
+            var d_x=0, d_y=0
+            // if shape_second
+            switch (shape_second) {
+                case 'vcentre':
+                    d_x = 0;
+                    break;
+                case 'vleft':
+                    d_x = local_second_width/2;
+                    break;
+                case 'vright':
+                    d_x = -local_second_width/2;
+                    break;
+                case 'vhoriz':
+                    d_x = -1;
+                    break;
+                default:
+                    d_x = -1;
+                    break;
+            }
+            if (d_x != -1) {
+                // if case is align centre, left or right
+                local_x['gap'] = offset_x + d_x                
+                align_x_layer['node'] = local_second_index
+                align_x_layer['offset'] = d_x
+                if (local_second_type == 'attribute') {
+                    // All second leaves are has relations
+                    num_down = num_down + 1
+                    // y spacings are all in the positive y direction, or mirror case if group_lay=-1
+                    d_y = group_y * num_down * group_lay         
+                    align_y_layer['node'] = local_second_index
+                    align_y_layer['offset'] = d_y          
+                } else {
+                    // All second leaves are role relations
+                    num_up = num_up + 1
+                    // y spacings are all in the negative y direction, or mirror case if group_lay=-1
+                    d_y = - group_y * num_up * group_lay        
+                    align_y_layer['node'] = local_second_index
+                    align_y_layer['offset'] = d_y                              
+                }     
+                // upload into constraint definitions
+                local_y['gap'] = d_y
+                return_list.push(local_x)
+                return_list.push(local_y) 
+                offsets_in_x.push(align_x_layer)
+                offsets_in_y.push(align_y_layer)  
+
+            } else {
+                // assume it is horizontal align, so dy=0 for second leaves
+                // is main an entity or relation, and what is second leaf
+                num_horiz = num_horiz + 1
+                d_x = num_horiz *2* group_y * group_lay   
+                d_y = 0
+                local_x['gap'] = d_x    
+                local_y['gap'] = d_y            
+                align_x_layer['node'] = local_second_index
+                align_x_layer['offset'] = d_x
+                align_y_layer['node'] = local_second_index
+                align_y_layer['offset'] = d_y   
+                return_list.push(local_x)
+                return_list.push(local_y) 
+                offsets_in_x.push(align_x_layer)
+                offsets_in_y.push(align_y_layer)             
+            }
+                      
+        }
+        align_x['offsets'] = offsets_in_x 
+        align_y['offsets'] = offsets_in_y 
+        console.log('offsets in x -> ',align_x )
+        console.log('offsets in y -> ',align_y )
+        // get rid of the x-y offsets, only align
+        return_list=[]
+        return_list.push(align_x)
+        return_list.push(align_y)
+        console.log('==== Returned Constraints ==================')
+        console.log('input constraints return list is ->', return_list)
+        // visualise value
+        var input_constraints = return_list
+        if (shape_main == 'free') {
+            input_constraints=[]
+        }
+        visualise_group(input_constraints)
+    }
+
+    function get_xy_distance(local_screen_svg) {
+        // set constraints for from-to x-y distances
+        var results_list = []
+        var svg = local_screen_svg
+
+        var local_leaves = svg.selectAll(".node")
+        console.log('------- SETTING X-Y DISTANCES -------')
+        console.log('local nodes are ', local_leaves )
+        console.log('groups are ', local_leaves['_groups'] )
+        console.log('local nodes are ', local_leaves['_groups'][0])
+        local_list = local_leaves['_groups'][0]
+        //var leavesbbox = svg.selectAll(".node").getBBox()
+        //console.log('bbox details are -> ',leavesbbox)
+        console.log('length ',local_list.length)
+
+        for (var i=0; i<local_list.length; i++) {
+            var local_node = local_list[i]
+            var local_data = local_node['__data__']
+            var res_data_layer = {}
+            res_data_layer['width'] = local_data['width']
+            res_data_layer['height'] = local_data['height']
+            res_data_layer['x'] = local_data['x']
+            res_data_layer['y'] = local_data['y']
+            res_data_layer['G_name'] = local_data['G_name']
+            res_data_layer['constraint_type'] = local_data['constraint_type']
+            res_data_layer['type'] = local_data['type']
+            res_data_layer['index'] = local_data['index']
+            results_list.push(res_data_layer)
+
+            console.log('local node summary is ', res_data_layer)
+            console.log('local data here ', local_data)
+            console.log('local node data here ', local_data['width'])
+            
+        }
+
+        console.log('viz summary is ', results_list)
+
+        return results_list
+    }
+    
+    
+
+    
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //      C. Colour Theme, variables, lists and basic dimensions of force graph
+    //----------------------------------------------------------------------------------
+    /// layout initialisation stuff below
+    // colour theme
+         
+
+    // default colour variables
+    
+    var colours;
+    var colour_names = []
+    var colour_indexes = []
+
+    colours = colourlist
+    // load the colours from the theme
+    
+    // collect colour names
+    for (var w=0; w< colourlist.length; w++) {
+        colour_names.push(colourlist[w]['name'])
+        colour_indexes.push(w)
+    }
+    console.log('===================colours loaded =============')
+    console.log('colour names -> ', colour_names)
+    console.log('colour indexes -> ', colour_indexes)
+    //**********************************************************************************
+    // D
+    ResetForm()
+    
+
+    // default dimension variables
+    const textPadding = 8;
+    const corner = 5;
+    const grp_corner = 8;
+    const pad = 5;
+    const height = screen_svgHeight;
+    const width = screen_svgWidth;
+    var mouseTipX = 20;
+    var mouseTipY = 20;
+    var counter = 0;
+    
+
+    
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //     E. Function List Below  - Form Hide
+    //                          - Form Reset - General Reset facility
+    //                          - Form Setup with Data
+    //                          - stuff here
+    //                          - stuff herec
+    //----------------------------------------------------------------------------------
+    
+
+    function form__hide(formname, ctrlname, labelname) {
+        // hides select controls in the first column
+        //setup main leaf
+        var mainform = document.getElementById(formname);
+        var mainLeaf = document.getElementById(ctrlname);
+        var mainLeafLabel = document.getElementById(labelname);
+        //var mainLeafLabel2 = document.getElementById(ctrlname+"Label");
+        console.log(';;;;;;;;;;;;;;;;;; form hide ;;;;;;;;;;;;;;;;;;;;;;')
+        console.log('form name is ', formname)
+        console.log(mainLeaf)
+        mainLeaf.options.length = 0;
+        mainform.style.visibility = "hidden";        
+    }
+
+    function clearScreen() {
+        document.getElementById("form1").style.visibility = "hidden";
+        document.getElementById("form2").style.visibility = "hidden";
+        document.getElementById("form3").style.visibility = "hidden";
+        document.getElementById("form4").style.visibility = "hidden";
+        document.getElementById("form5").style.visibility = "hidden";
+        document.getElementById("form11").style.visibility = "hidden";
+        document.getElementById("form12").style.visibility = "hidden";
+        document.getElementById("form13").style.visibility = "hidden";
+        document.getElementById("form14").style.visibility = "hidden";
+        document.getElementById("formG1").style.visibility = "hidden";
+        document.getElementById("formG2").style.visibility = "hidden";
+        document.getElementById("formG3").style.visibility = "hidden";
+        document.getElementById("formML").style.visibility = "hidden";
+        document.getElementById("formSL").style.visibility = "hidden";
+
+        form__hide(formname='form1', ctrlname='gfMain', labelname='gfMainLabel')
+        form__hide(formname='form2', ctrlname='gfSecond', labelname='gfSecondLabel')
+        form__hide(formname='form3', ctrlname='gfRole', labelname='gfRoleLabel')
+        form__hide(formname='form4', ctrlname='gfThird', labelname='gfThirdLabel')
+        form__hide(formname='form5', ctrlname='gfRole2', labelname='gfRole2Label')
+        form__hide(formname='form11', ctrlname='gfFourth', labelname='gfFourthLabel')
+        form__hide(formname='form12', ctrlname='gfRole4', labelname='gfRole4Label')
+        form__hide(formname='form13', ctrlname='gfFifth', labelname='gfFifthLabel')
+        form__hide(formname='form14', ctrlname='gfRole5', labelname='gfRole5Label')
+        form__hide(formname='formG1', ctrlname='gfGroup1', labelname='gfGroup1Label')
+        form__hide(formname='formG2', ctrlname='gfGroup2', labelname='gfGroup2Label')
+        form__hide(formname='formG3', ctrlname='gfGroup3', labelname='gfGroup3Label')
+
+        // setup colour list into select control
+        form__setup_and_select(select_index=0, formname="form6", ctrlname="CList", labelname="CListLabel", option_array=colour_names)
+        form__setup_and_select(select_index=0, formname="form7", ctrlname="CItem", labelname="CItemLabel", option_array=colour_indexes)
+        // need to clear out the label and ghost the button
+        var label = document.getElementById('Group_name')
+        label.value = ''
+        // ghost the define groups button
+        var mybutton = document.getElementById('Def_Group');
+        mybutton.disabled = true;    
+        // remove the graphic from the groups window
+        console.log('[[[[[[[[[[[[[[[[[[ clearing g def viz [[[[[[[[[[[[[[')
+        screen_svg.selectAll('g').remove();
+        console.log(screen_svg)
+
+    }
+
+    function ResetForm() {
+        // first clear screen
+        clearScreen()
+        
+        // zero out the state variables
+        State['colour_list'] = 'Greys'
+        State['colour_index'] = 0
+        State['group_label'] = ''
+        State['MainLeaf'] = ''
+        State['SecondLeaves'] = []
+        State['Roles'] = []
+        State['GroupId'] = []
+        State['GofGroupId'] = []
+        State['GroupId_Name'] = []
+        State['GofGroupId_Name'] = []      
+
+        // uncheck all radio buttons
+        document.getElementById('btnradio1').checked = false
+        document.getElementById('btnradio2').checked = false
+        document.getElementById('btnradio3').checked = false
+        document.getElementById('btnradio4').checked = false
+        document.getElementById('btnradio5').checked = false
+        
+        // setup defined list, defined visualisation and
+        if ('defined_list' in colaGraph) {
+            defined = colaGraph['defined_list']
+            console.log('---- value of defined is ->', defined)
+            console.log('defined is ->', defined)
+            for (var t=0; t<defined.length; t++) {
+                console.log('=============entering check defined = =====')
+                var local_Defined = defined[t]
+                var localtype = local_Defined['ops']['type']
+                console.log('my lopcaltype is ', localtype)
+                if (localtype == 'Type1') {
+                    document.getElementById('btnradio2').disabled = false
+                    document.getElementById('btnradio3').disabled = false
+                }
+                if (localtype == 'Type3') {
+                    document.getElementById('btnradio4').disabled = false
+                }
+            }
+            VisualiseDefined()
+        }
+    }
+    
+
+    function form__setup_and_select(select_index, formname, ctrlname, labelname, option_array) {        
+        //setup main leaf
+        var mainform = document.getElementById(formname);
+        var mainLeaf = document.getElementById(ctrlname);
+        var mainLeafLabel = document.getElementById(labelname);
+        //var mainLeafLabel2 = document.getElementById(ctrlname+"Label");
+        mainLeaf.options.length = 0;        
+        // setup select options
+        for(var i=0; i < option_array.length; i++) {
+            //create an <option> to add the <select>
+            var child = document.createElement("option");            
+            //assign values to the <option>
+            child.text = option_array[i];
+            child.value = option_array[i];
+            mainLeaf.add(child);
+        }
+        mainform.style.visibility = "visible";        
+        var mainLeaf = document.getElementById(ctrlname);
+        mainLeaf.options[select_index].selected = true
+    }
+
+    function getGroupsforType3() {
+        // look through the definitions to find the groups suitable for forming a Type 3  subgroup
+        return_list = []
+        console.log('############ Find Group Targets for Type 3 ##############')
+        for(var i=0; i<defined.length; i++) {
+            var elem = defined[i]
+            //var G_name_dict = elem['leaves'][0]
+            //var G_name = G_name_dict['G_name']
+            var elem_ops = elem['ops']
+            var G_name = elem_ops['label']
+            if (!('subgroups' in elem_ops)) { 
+                // it is a group that is not already a sub group
+                return_list.push(G_name)
+            }
+        }
+        console.log('return_list is ', return_list)
+        return return_list
+        
+    }
+
+    
+    
+    // switch the user interface
+    function handleGType(gRadio) {
+        clearScreen()
+        State['colour_list'] = 'Greys'
+        State['colour_index'] = 0
+        State['group_label'] = ''
+        State['MainLeaf'] = ''
+        State['SecondLeaves'] = []
+        State['Roles'] = []
+        State['GroupId'] = []
+        State['GofGroupId'] = []
+        State['GroupId_Name'] = []
+        State['GofGroupId_Name'] = []  
+        State['GofGroupBasis'] = []      
+        
+        if (gRadio.checked == true) {
+            switch (gRadio.value) {
+                case "Type 1":
+                    State['Type'] = 'Type1'
+                    form__setup(formname="form1", ctrlname="gfMain", labelname="gfMainLabel", def_blank_text="Select a Main Leaf", option_array=G_Schema_Down)
+                    break
+
+                case "Type 2":
+                    State['Type'] = 'Type2'
+                    form__setup(formname="form1", ctrlname="gfMain", labelname="gfMainLabel", def_blank_text="Select a Main Leaf", option_array=G_Schema_Down)
+                    break
+
+                case "Type 3":                    
+                    State['Type'] = 'Type3'
+                    let  local_v = getGroupsforType3()
+                    form__setup(formname="formG1", ctrlname="gfGroup1", labelname="gfGroup1Label", def_blank_text="Select a Group to be Grouped", option_array=local_v)
+                    break
+
+                case "Type 4":                    
+                    State['Type'] = 'Type4'
+                    form__setup(formname="form1", ctrlname="gfMain", labelname="gfMainLabel", def_blank_text="Select a Main Leaf", option_array=G_Schema_Down)
+                    break
+
+                case "Other":
+                    
+                    State['Type'] = 'Other'
+                    break
+
+                default:
+                    
+                    break
+            }
+
+        } else {
+            
+        }
+        
+    }
+
+    
+
+    function group_label(newvalue) {
+        if (newvalue != '') {
+            State['group_label'] = newvalue
+            var mybutton = document.getElementById('Def_Group');
+            mybutton.disabled = false;
+        }
+    }
+
+    function DefineGroups() {
+        var defined_layer = {}
+        var leaves = [];
+        var groups = [];
+        var results = [];
+        var g_constraints ={};
+        var ops = {};
+        var sel_type = State['Type']
+        var sel_main_leaf = State['MainLeaf']
+        var sel_second_list = State['SecondLeaves']
+        var sel_second_roles = State['Roles']
+        var sel_group = State['GroupId']
+        var sel_group_name = State['GroupId_Name']
+        var sel_g_of_g = State['GofGroupId']
+        var sel_g_of_g_name = State['GofGroupId_Name']
+        var sel_g_of_g_basis = State['GofGroupBasis']
+        // ---------------------------------------------------------
+        // 1. Ops
+        // setup the ops stuff, as this i common to each definition
+        ops['name'] = State['group_label'].split(' ').join('_')
+        ops['colour_list'] = State['colour_list']
+        ops['level'] = State['colour_index']
+        ops['label'] = State['group_label']
+        ops['type'] = State['Type']
+        console.log('============================== Group Definition Save Report 0 ==================================')
+        console.log('opse is -> ', ops)
+        console.log('leaves are -> ', leaves)
+        console.log('groups are ->', groups)
+        console.log('============================== Inputs ==================================')
+        console.log('sel_type is -> ', sel_type)
+        console.log('sel_main_leaf are -> ', sel_main_leaf)
+        console.log('sel_second_list are ->', sel_second_list)
+        console.log('sel_second_roles is -> ', sel_second_roles)
+        console.log('sel_group are -> ', sel_group)
+        console.log('sel_group_name are ->', sel_group_name)
+        console.log('sel_g_of_g is -> ', sel_g_of_g)
+        console.log('sel_g_of_g_name are -> ', sel_g_of_g_name)
+        console.log('sel_g_of_g_basis are ->', sel_g_of_g_basis)
+        
+        // ---------------------------------------------------------
+        // 2. For Group Types 1, 2 and 4
+        // Check if there is a main leaf, and save it
+        if (sel_type != 'Type3' & sel_main_leaf != '') {
+            // create the JSON record needed for
+            var main = {}
+            main['G_name'] = sel_main_leaf
+            leaves.push(main)
+            console.log('============================== Group Definition Save Report 1 ==================================')
+            console.log('opse is -> ', ops)
+            console.log('leaves are -> ', leaves)
+            console.log('groups are ->', groups)
+            // -----------------------------------------------------------
+            // 2. then add second leaves
+            // for each second leaf
+            for (var i=0; i < sel_second_list.length; i++ ) {
+                var llayer = {}
+                llayer['G_name'] = sel_second_list[i]
+                llayer['role'] = sel_second_roles[i]
+                leaves.push(llayer)
+            }
+            console.log('============================== Group Definition Save Report 2 ==================================')
+            console.log('ops is -> ', ops)
+            console.log('leaves are -> ', leaves)
+            console.log('groups are ->', groups)
+            // ---------------------------------------------------------
+            // 3.Add the sub group definitions if it exists (Type 2)
+            // Get the matching definition, then save out the new group definition
+            for (var j=0; j<sel_group_name.length; j++) {
+                // first connect to the matching group definition
+                var loc_def_ind = -1
+                for (var k=0; k<defined.length; k++) {
+                    var loc_def = defined[k]
+                    var loc_def_ops = loc_def['ops']
+                    if (loc_def_ops['label'] ==sel_group_name[j]) {
+                        // record that the group has been used as a subgroup
+                        loc_def_ops['subgroup'] = true
+                        loc_def_ind = k
+                        break
+                    }
+                }
+                if (loc_def_ind != -1) {
+                    var layer_def = defined[loc_def_ind]
+                    // create the JSON record needed for the group definition
+                    var glayer = {}
+                    glayer['group'] = layer_def['ops']['name']
+                    glayer['condition'] = 'leaf'
+                    glayer['l_G_name'] = sel_main_leaf
+                    
+                    // pull the role from the schema
+                    for (var l=0; l<G_Schema_List.length; l++) {
+                        var schema_layer = G_Schema_List[l]
+                        var check_leaf_name = sel_group[j]
+                        var loc_source = schema_layer['source_name']
+                        var loc_target = schema_layer['target_name']
+                        if ((loc_source == sel_main_leaf & loc_target == check_leaf_name)||(loc_source == check_leaf_name & loc_target == sel_main_leaf)) {
+                            glayer['l_role'] = schema_layer['role']
+                            groups.push(glayer)
+                            break
+                        }
+                    }    
+
+                } else {
+                    console.log('******************************************************')
+                    console.log('--------------- Could not get a definition record to match the group name ---------------')
+                }
+                
+
+            }
+            console.log('============================== Group Definition Save Report 3 ==================================')
+            console.log('ops is -> ', ops)
+            console.log('leaves are -> ', leaves)
+            console.log('groups are ->', groups)
+            // ---------------------------------------------------------
+            // 4.Add the sub group of groups definitions if it exists (Type 4)
+            // Get the matching definition, then save out the new group definition
+
+
+
+            // ---------------------------------------------------------
+            // 5.Add the constraints if available and needed
+            if (useConstraints) {
+                // then dependent on whether freeform or not
+                var local_main_select = document.getElementById('constraintMain')
+                var shape_main = local_main_select.value
+                if (shape_main != 'free') {
+                    // tap the constraints out of d3cola that are local type
+                    var all_constraints = d3cola._constraints
+                    var all_nodes = d3cola._nodes
+                    console.log('all constraints are -> ', all_constraints)
+                    console.log('all all_nodes are -> ', all_nodes)
+                    var from_to = [], align_x_offsets = [], align_y_offsets = [] , align_x = {}, align_y = {} 
+                    for (var k=0; k<all_constraints.length; k++) {
+                        var temp_constraint = all_constraints[k]
+                        if (temp_constraint['g_type'] == 'local') {
+                            var local_constraint = JSON.parse(JSON.stringify(all_constraints[k]))
+                            if (local_constraint['c_type'] == 'from_to') {
+                                // convert to gname instead of index numbers
+                                var left_index = temp_constraint['left']
+                                var left_node = all_nodes[left_index]
+                                var right_index = temp_constraint['right']
+                                var right_node = all_nodes[right_index]
+                                local_constraint['left'] = left_node['G_name']
+                                local_constraint['right'] = right_node['G_name']
+                                
+                                // push command instead of constraint
+                                from_to.push(local_constraint)
+                            }
+                            if (local_constraint['c_type'] == 'align_x') {         
+                                align_x = local_constraint                     
+                                var local_constraint_offsets_x_list = local_constraint['offsets'] 
+                                for (var m=0; m<local_constraint_offsets_x_list.length; m++) {
+                                    var local_x_align_layer = local_constraint_offsets_x_list[m]
+                                    var local_x_node_index = local_x_align_layer['node']
+                                    var local_x_node = all_nodes[local_x_node_index ]
+                                    // convert to gname instead of index numbers
+                                    local_x_align_layer['node'] = local_x_node['G_name']     
+                                    // push copmmand instrad of constraint
+                                    align_x_offsets.push(local_x_align_layer)                               
+                                }
+                                
+                                
+                            }
+                            if (local_constraint['c_type'] == 'align_y') {
+                                align_y = local_constraint                     
+                                var local_constraint_offsets_y_list = local_constraint['offsets'] 
+                                console.log('y align constraint -> ',local_constraint)
+                                console.log('y offset list -> ',local_constraint_offsets_y_list)
+                                for (var n=0; n<local_constraint_offsets_y_list.length; n++) {
+                                    console.log('Insiode constraints renaming loop, n is ->', n)
+                                    var local_y_align_layer = local_constraint_offsets_y_list[n]
+                                    var local_y_node_index = local_y_align_layer['node']
+                                    var local_y_node = all_nodes[local_y_node_index ]
+                                    // convert to gname instead of index numbers
+                                    local_y_align_layer['node'] = local_y_node['G_name']
+                                    // push copmmand instrad of constraint
+                                    align_y_offsets.push(local_y_align_layer)}
+                                }
+                                
+                                
+                        }
+                    }
+                    // Add the constraints together
+                    if (align_x_offsets.length != 0) {
+                        align_x['offsets'] = align_x_offsets
+                    } else {
+                        align_x = {}
+                    }
+                    if (align_y_offsets.length != 0) {
+                        align_y['offsets'] = align_y_offsets
+                    } else {
+                        align_y = {}
+                    }
+                    
+                    g_constraints['from_to'] = from_to
+                    g_constraints['align_x'] = align_x
+                    g_constraints['align_y'] = align_y
+
+                    console.log('=======================================================================================')
+                    console.log('%%%%%%%%%%%%%%%%%%%%%% Made it through Build Constraints %%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+                    console.log('from to constraints are -> ', from_to)
+                    console.log('align_x constraints are -> ', align_x)
+                    console.log('align_y constraints are -> ', align_y)
+                    console.log('%%%%%%%%%%%%%%%%%%%%%% Made it through Build Constraints %%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+                    console.log('=======================================================================================')
+                    
+                } else {
+                    // Shape is Free, Currently Do Nothing
+                }
+
+            }
+
+            
+        } else if (sel_type == 'Type3' & sel_main_leaf == '') {
+            // put type 3 here, leaves should be = []
+            // now just make groups record and send it on
+            console.log('============== Defining Type 3 ======================')
+            for (var j=0; j<sel_g_of_g_name.length; j++) {
+                // go through for each
+                var loc_def_ind = -1
+                for (var k=0; k<defined.length; k++) {
+                    var loc_def = defined[k]
+                    var loc_def_ops = loc_def['ops']
+                    if (loc_def_ops['label'] ==sel_g_of_g_name[j]) {
+                        loc_def_ops['subgroup'] = true
+                        loc_def_ind = k
+                        break
+                    }
+                }
+                if (loc_def_ind != -1) {
+                    console.log('loc def ind ', loc_def_ind)
+                    console.log('sel_g_of_g_name[loc_def_ind] ', defined[loc_def_ind])
+                    // ok convert label of group to the name of the group
+                    var loc_grp_def = defined[loc_def_ind]
+                    var loc_grp_leaves = loc_grp_def['leaves']
+                    var loc_grp_main = loc_grp_leaves[0]['G_name']
+                    var loc_grp_layer = {}
+                    loc_grp_layer['group'] = loc_grp_def['ops']['name']
+                    loc_grp_layer['condition'] = 'value'
+                    loc_grp_layer['g_G_name'] = loc_grp_main                    
+                    loc_grp_layer['basis'] = 'distinct'
+                    loc_grp_layer['v_G_name'] = sel_g_of_g[j]
+                    console.log('the group definition layer is -> ',loc_grp_layer )
+                    // pull the role from the schema
+                    for (var l=0; l<G_Schema_List.length; l++) {
+                        var schema_layer = G_Schema_List[l]
+                        var check_leaf_name = sel_g_of_g[j]
+                        var loc_source = schema_layer['source_name']
+                        var loc_target = schema_layer['target_name']
+                        if ((loc_source == loc_grp_main & loc_target == check_leaf_name)||(loc_source == check_leaf_name & loc_target == loc_grp_main)) {
+                            loc_grp_layer['g_role'] = schema_layer['role']
+                            groups.push(loc_grp_layer)
+                            break
+                        }
+                    }    
+                }
+            }
+            console.log('************************ groups finished ************************')
+            console.log(groups)
+        } else {
+            // bad type, freak out here
+            console.log('================= bad type ====================================')
+            console.log('sel type is -> ', sel_type)
+        }
+        // check for special fields
+        var location = {}
+        var lon = false, lat = false
+        for (var k=0; k< leaves.length; k++) {
+            loc_gname = leaves[k]['G_name']
+            if (loc_gname == 'lon') {
+                lon = true
+                location['lon'] = loc_gname
+            }
+            if (loc_gname == 'lat') {
+                lat = true
+                location['lat'] = loc_gname
+            }
+        }
+        if ((lat == true) & (lon == true)) {
+            ops['location'] = location
+        }
+        defined_layer['leaves'] = leaves
+        defined_layer['groups'] = groups
+        defined_layer['results'] = results
+        defined_layer['ops'] = ops
+        //var test = get_xy_distance(screen_svg)
+        
+        defined_layer['constraints'] = g_constraints
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$') 
+        console.log('----------------------====================')   
+        console.log('my constraints ARE ', g_constraints); 
+        console.log('defined_layer is ', defined_layer); 
+        console.log('============================================')    
+        console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$') 
+        
+            
+        defined.push(defined_layer)
+        console.log(' defined is -> ', defined)
+        // clean defined to remove old results data, nd reset sub-group names to strings
+        for(var s=0; s< defined.length; s++) {
+            let tmp_def = defined[s]
+            let tmp_grp_def = tmp_def['groups']
+            // switch group object to group name as a string
+            if (tmp_grp_def.length > 0) {
+                console.log('inside the sub group definition ')
+                let tmp_grp_def_sub_group = tmp_grp_def[0]['group']
+                console.log('tmp_grp_def_sub_group is ', tmp_grp_def_sub_group)
+                if( typeof tmp_grp_def_sub_group === 'object') {
+                    let tempname =  tmp_grp_def_sub_group['ops']['name']
+                    tmp_grp_def_sub_group =  tempname
+                    console.log('tmp_grp_def_sub_group now is ', tmp_grp_def_sub_group)                    
+                }
+            }
+            // remove results
+            tmp_def['results'] = []
+        }
+        console.log('cleaned defined is -> ', defined)
+
+        State['MainLeaf'] = ''
+        State['SecondLeaves'] = []
+        State['Roles'] = []
+        delete State.MainLeaf
+        delete State.SecondLeaves
+        delete State.Roles
+        State['DefinedGroups'] = defined
+        State['Type1isDefined'] = true
+        var Graph_Data = {}
+        colaGraph['defined_list'] = defined
+
+        async function getGraph(){
+            console.log('============================================') 
+            console.log("going into the async GET")
+            colaGraph = await create('/get_group', JSON.stringify(colaGraph));  
+            console.log('----------------------====================')   
+            console.log('my return colaGraph is ', colaGraph); 
+            console.log('============================================')    
+            G_Grouped = colaGraph['grouped'] 
+            defined = colaGraph['defined_list']
+            g_G_nodes = G_Grouped['nodes'] 
+            g_G_links = G_Grouped['links'] 
+            g_G_groups =G_Grouped['groups']  
+            console.log('G_Grouped -> ', G_Grouped)        
+            VisualiseDefined()
+            ResetForm()
+        }
+        getGraph();
+        
+        
+    }
+
+    
+
+    function VisualiseDefined() {
+        var node_select = defined_svg.append('g')
+        var nodegroup = defined_svg.append('g') 
+        var x_loc_node = 35, y_loc_node = 30, y_index_value = 60
+        var x_loc_text = 85, y_loc_text = 50
+        var select_pad = 5;
+        var node_width = 30, node_height = 30, node_corner = 5;
+
+        var grouped_label = nodegroup.selectAll(".group_label")
+                            .data(defined)
+                            .enter()
+                            .append("text")
+                            .attr("x", x_loc_text)
+                            .attr("y", function (d,i) { return y_loc_text + i* y_index_value; })
+                            .attr("class", "group_label")
+                            .text(d => d.ops.label)
+                            .attr('id', function (d,i) { 
+                                return d.ops.type + d.ops.name;
+                            })
+                            .style('font-size', 16)
+                            .style('fill', 'black')
+                            .style("pointer-events", "none");   
+
+        // setup rectangle
+        var grouped_node = nodegroup.selectAll(".def_node")
+                            .data(defined)
+                            .enter()
+                            .append("rect")
+                            .attr("x", x_loc_node)
+                            .attr("y", function (d,i) { return y_loc_node + i* y_index_value; })
+                            .attr("width", node_width)
+                            .attr("height", node_height)
+                            .attr('rx', node_corner)
+                            .attr('ry', node_corner)     
+                            .attr("class", "def_node")
+                            .style("fill", function (d, i) { 
+                                return colourlist.find(colour => colour.name == d.ops.colour_list)['colors'][d.ops.level];
+                            })
+                            .style("stroke", function (d, i) { 
+                                return colourlist.find(colour => colour.name == d.ops.colour_list)['colors'][7];
+                            })
+                            .on("mouseover", function(){
+                                d3.select(this)
+                                  .style("fill", "orange");
+                      
+                                // Get current event info
+                                console.log(d3.event);
+                                
+                                // Get x & y co-ordinates
+                                console.log(d3.mouse(this));
+                            })
+                            .on("mouseout", function(){
+                                d3.select(this)
+                                  .style("fill", function (d, i) { 
+                                    return colourlist.find(colour => colour.name == d.ops.colour_list)['colors'][d.ops.level];
+                                })
+                            })
+                            .on("click", function(){
+                                var shape = this.getBBox();
+                                var shape_x = shape.x;
+                                var shape_y = shape.y;
+                                var existing = node_select.selectAll('.selectbox')
+                                console.log('boun ding rect is ', shape)
+                                console.log('existing is -> ', existing)
+                                console.log('x is ', shape_x)
+                                console.log('y is ', shape_y)
+
+                                existing.remove()
+                                var layer = {}, locallist = []
+                                layer["s_x"] = x_loc_node - 2*select_pad
+                                layer["s_y"] = shape_y - select_pad
+
+                                d3.select(this)
+                                  .style("fill", function (d, i) { 
+                                      console.log('selected index -> ', selected_index)
+                                      console.log('i is -> ', i)
+                                      console.log('d is -> ', d)
+                                      console.log('d.x is ', d.x)
+                                      let headingid = '#' + d.ops.type + d.ops.name;
+                                    let headingbbox = d3.select(headingid).node().getBBox();        
+                                    layer["s_width"] = (x_loc_text -x_loc_node) + headingbbox.width + (select_pad * 4)
+                                    layer["s_height"] = node_height + (select_pad * 2)
+                                    locallist.push(layer)
+                                    
+                                    selected_index = i;
+                                    console.log('layer width is ',layer["s_width"])
+                                    console.log('layer height is ',layer["s_height"])
+                                    console.log('layer x,y is ',layer["s_x"], layer["s_y"])
+                                    console.log(i)
+                                    // add selected border
+                                    var selectbox = node_select.selectAll('.selectbox')
+                                        .data(locallist)
+                                        .enter()
+                                        .append("rect")
+                                        .attr("x", d => d.s_x)
+                                        .attr("y", d => d.s_y)
+                                        .attr("width", d => d.s_width)
+                                        .attr("height", d => d.s_height)
+                                        .attr("class", "selectbox")                                        
+                                        .style("stroke", 'grey')
+                                        .style('fill', "none")
+                                        .style("stroke-width", 0.5);
+
+                                        
+                                    return colourlist.find(colour => colour.name == d.ops.colour_list)['colors'][d.ops.level];
+                                })
+                            });
+
+        
+    }
+
+    
+
+
+    function ClickSelect1(select_ctrl) {        
+        // responds to user selection in the first select control in column 1
+        var local_value;
+        // if Type 1, then
+        if (State['Type'] != 'Type3') {
+            // zero out options and hide forms
+            State['MainLeaf'] = []
+            State['SecondLeaves'] = []
+            State['Roles'] = []
+            form__hide(formname='form2', ctrlname='gfSecond', labelname='gfSecondLabel')
+            form__hide(formname='form3', ctrlname='gfRole', labelname='gfRoleLabel')
+            form__hide(formname='form4', ctrlname='gfThird', labelname='gfThirdLabel')
+            form__hide(formname='form5', ctrlname='gfRole2', labelname='gfRole2Label')
+
+            local_value = select_ctrl.value;
+            State['MainLeaf'] = local_value;
+            // visualise value
+            var input_constraints = []
+            visualise_group(input_constraints)
+
+            // setup data list for next form, downwards from the selected element
+            var new_list = return_targets(current=local_value)
+            console.log('====== val1 ========')
+            // setup second leaf ctrl
+            form__setup(formname="form2", ctrlname="gfSecond", labelname="gfSecondLabel", def_blank_text="Select a Secondary Leaf", option_array=new_list)
+        }  
+        if (State['Type'] == 'Type2') {
+            // hide group form
+            State['GroupId'] = []
+            form__hide(formname='formG1', ctrlname='gfGroup1', labelname='gfGroup1Label')
+            form__hide(formname='formG2', ctrlname='gfGroup2', labelname='gfGroup2Label')                    
+            // setup data listt for group form
+            new_list=[]
+            new_list = return_Type2_group_targets(current=local_value)
+            console.log('====== val1 ========')
+            console.log('new list is ->', new_list)
+            // setup second leaf ctrl
+            form__setup(formname="formG1", ctrlname="gfGroup1", labelname="gfGroup1Label", def_blank_text="Select a Linked Subgroup", option_array=new_list)
+
+        }
+        if (State['Type'] == 'Type4') {
+            // hide group form
+            State['GroupId'] = []
+            form__hide(formname='formG1', ctrlname='gfGroup1', labelname='gfGroup1Label')
+            form__hide(formname='formG2', ctrlname='gfGroup2', labelname='gfGroup2Label')                    
+            // setup data listt for group form
+            new_list=[]
+            new_list = return_Type2_group_targets(current=local_value)
+            console.log('====== val1 ========')
+            console.log('new list is ->', new_list)
+            // setup second leaf ctrl
+            form__setup(formname="formG1", ctrlname="gfGroup1", labelname="gfGroup1Label", def_blank_text="Select a Linked Subgroup", option_array=new_list)
+
+        }
+        
+        // If Type = 2, etc.
+
+        
+        // setup visual element
+
+        // setup second leaf
+    }
+
+    function ClickSelect2(select_ctrl) {        
+        // responds to user selection in the second select control in column 1
+        var local_value;
+        // if Type 1, then
+        if (State['Type'] != 'Type3') {
+            // zero out options and hide forms
+            State['SecondLeaves'] = []
+            State['Roles'] = []
+            form__hide(formname='form4', ctrlname='gfThird', labelname='gfThirdLabel')
+            form__hide(formname='form5', ctrlname='gfRole2', labelname='gfRole2Label')
+
+            local_value = select_ctrl.value;
+            State['SecondLeaves'].push(local_value);
+            // setup data list for next form, downwards from the selected element
+            var local_role = return_role(main=State['MainLeaf'], second=local_value)
+            State['Roles'].push(local_role);
+            // visualise value
+            var input_constraints = []
+            visualise_group(input_constraints)
+
+            // setup second leaf ctrl
+            role__setup(formname="form3", ctrlname="gfRole", labelname="gfRoleLabel", def_role_text="Select a Linking Role", option_role=local_role);
+            // if there are additional values
+            console.log('main leaf = ', State['MainLeaf'])
+            var new_list = return_targets(current=State['MainLeaf'])
+            new_list = arrayRemove(new_list, local_value)
+            if (new_list.length > 0) {
+                form__setup(formname="form4", ctrlname="gfThird", labelname="gfThirdLabel", def_blank_text="Select a Secondary Leaf", option_array=new_list)                
+            }
+        }        
+
+    }
+
+    function ClickSelect4(select_ctrl) {
+        // responds to user selection in the fourth select control in column 1
+        var local_value;
+        // if Type 1, then
+        if (State['Type'] != 'Type3') {
+            local_value = select_ctrl.value;
+            State['SecondLeaves'].push(local_value);
+            // setup data list for next form, downwards from the selected element
+            var local_role = return_role(main=State['MainLeaf'], second=local_value)
+            State['Roles'].push(local_role);
+            // visualise value
+            var input_constraints = []
+            visualise_group(input_constraints)
+
+            // setup second leaf ctrl
+            role__setup(formname="form5", ctrlname="gfRole2", labelname="gfRole2Label", def_role_text="Select a Linking Role", option_role=local_role);
+
+            var local_list = State['SecondLeaves']
+            var new_list = return_targets(current=State['MainLeaf'])
+            for (var i=0; i< local_list.length; i++) {
+                new_list = arrayRemove(new_list, local_list[i])                
+            }
+            if (new_list.length > 0) {
+                form__setup(formname="form11", ctrlname="gfFourth", labelname="gfFourthLabel", def_blank_text="Secondary Leaf", option_array=new_list)                
+            }
+            
+        }        
+
+    }
+
+    function ClickSelect11(select_ctrl) {
+        // responds to user selection in the fourth select control in column 1
+        var local_value;
+        // if Type 1, then
+        if (State['Type'] != 'Type3') {
+            local_value = select_ctrl.value;
+            State['SecondLeaves'].push(local_value);
+            // setup data list for next form, downwards from the selected element
+            var local_role = return_role(main=State['MainLeaf'], second=local_value)
+            State['Roles'].push(local_role);
+            // visualise value
+            var input_constraints = []
+            visualise_group(input_constraints)
+
+            // setup second leaf ctrl
+            role__setup(formname="form12", ctrlname="gfRole4", labelname="gfRole4Label", def_role_text="Linking Role", option_role=local_role);
+
+            var local_list = State['SecondLeaves']
+            var new_list = return_targets(current=State['MainLeaf'])
+            for (var i=0; i< local_list.length; i++) {
+                new_list = arrayRemove(new_list, local_list[i])                
+            }
+            if (new_list.length > 0) {
+                form__setup(formname="form13", ctrlname="gfFifth", labelname="gfFifthLabel", def_blank_text="Secondary Leaf", option_array=new_list)                
+            }
+            
+        }        
+
+    }
+
+    function ClickSelect13(select_ctrl) {
+        // responds to user selection in the fourth select control in column 1
+        var local_value;
+        // if Type 1, then
+        if (State['Type'] != 'Type3') {
+            local_value = select_ctrl.value;
+            State['SecondLeaves'].push(local_value);
+            // setup data list for next form, downwards from the selected element
+            var local_role = return_role(main=State['MainLeaf'], second=local_value)
+            State['Roles'].push(local_role);
+            // visualise value
+            var input_constraints = []
+            visualise_group(input_constraints)
+
+            // setup second leaf ctrl
+            role__setup(formname="form14", ctrlname="gfRole5", labelname="gfRole5Label", def_role_text="Linking Role", option_role=local_role);
+
+            
+        }        
+
+    }
+
+    function ClickSelect6(select_ctrl) {
+        State['colour_list'] = select_ctrl.value;
+        // visualise value
+        var input_constraints = []
+        visualise_group(input_constraints)
+    }
+
+    function ClickSelect7(select_ctrl) {
+        State['colour_index'] = select_ctrl.value;
+        // visualise value
+        var input_constraints = []
+        visualise_group(input_constraints)
+    }
+
+    function ClickSelectG2(select_ctrl) {
+        State['GofGroupBasis'].push(select_ctrl.value)
+        // visualise value
+        //var input_constraints = []
+        //visualise_group(input_constraints)
+    }
+
+
+    
+
+    function ClickSelectG3(select_ctrl) {
+        State['GofGroupId'] = []
+        State['GofGroupId'].push(select_ctrl.value)
+        // visualise value
+        var input_constraints = []
+        visualise_group(input_constraints)
+    }
+
+    function ClickSelectG1(select_ctrl) {
+        console.log ('================ Im in G1 ==================')
+        console.log('state type is -> ', State['Type'])
+        var local_state = State['Type']
+        console.log('state type is -> ', local_state)
+        if (local_state == 'Type2') {
+            State['GroupId_Name'].push(select_ctrl.value);
+            console.log('----------------- into type 2 -------------------------')
+            // find the main leaf of the group
+            for (var i=0; i<defined.length; i++) {
+                // first find the right definition in the defined groups
+                var loc_defined = defined[i]
+                var loc_defined_name = loc_defined['ops']['label']
+                if (loc_defined_name == select_ctrl.value) {
+                    // record the main leaf if the selected value matcheds this definitions group name (label)
+                    var loc_defined_main_leaf_dict = loc_defined['leaves'][0]
+                    var loc_defined_main_leaf = loc_defined_main_leaf_dict['G_name']
+                    State['GroupId'].push(loc_defined_main_leaf)
+                }            
+            }
+
+        } else if (local_state == 'Type3') {
+            console.log('----------------- into type 3 -------------------------')
+            State['GofGroupId_Name'].push(select_ctrl.value);
+            var defined_index = -1
+            var local_leaves = []
+            // first, find the matching group definition
+            for (var i=0; i<defined.length; i++) {
+                // first find the right definition in the defined groups
+                var loc_defined2 = defined[i]
+                var loc_defined2_name = loc_defined2['ops']['label']
+                if (loc_defined2_name == select_ctrl.value) {
+                    // record the main leaf if the selected value matcheds this definitions group name (label)
+                    defined_index = i
+                    //var loc_defined_main_leaf_dict = loc_defined['leaves'][0]
+                    //var loc_defined_main_leaf = loc_defined_main_leaf_dict['G_name']
+                    //State['GofGroupId'].push(loc_defined_main_leaf)
+                }            
+            }
+            // second, get list of leaves to fill the select control
+            console.log('the defined group index is -> ', defined_index)
+            let loc_defined3 = defined[defined_index]
+            let loc_defined_leaves = loc_defined3['leaves']
+            for (var j=0; j<loc_defined_leaves.length; j++) {
+                // it could be any of the seconda and subsequent leaves
+                let loc_local_leaf_layer = loc_defined_leaves[j]
+                if (j>0) {
+                    local_leaves.push(loc_local_leaf_layer['G_name'])
+                }
+                
+            }
+            let approach_value = 'Distinct Value'
+            let approach_list = []
+            approach_list.push(approach_value)
+            form__setup_and_select(select_index=0, formname="formG2", ctrlname="gfGroup2", labelname="gfGroup2Label", option_array=approach_list)
+            form__setup_and_select(select_index=0, formname="formG3", ctrlname="gfGroup3", labelname="gfGroup3Label", option_array=local_leaves)
+
+            State['GofGroupId'] = local_leaves[0]        
+
+        } else {
+            console.log('================================================================')
+            console.log('----------------------- didnt go into any proper Type of action -------------------')
+        }
+        
+        // visualise value
+        var input_constraints = []
+        visualise_group(input_constraints)
+    }
+
+    function find_up(g_Name) {
+        // find any links where the mainleaf is the target
+        var local_list = []
+        var return_list = []        
+        
+        var max_links = 0
+        //  as we process through the links array, annotate the number of times G_Name appears and the target
+        for(var i=0; i< G_links.length; i++) {
+            //console.log('---------------------------------')
+            //console.log('lniks ', G_links[i])
+            var local_link = JSON.parse(JSON.stringify(G_links[i]))
+            var local_source = local_link['source']
+            var local_target = local_link['target']
+            var local_role = local_link['role']
+            var local_source_node = JSON.parse(JSON.stringify(G_nodes[local_source]))
+            var local_target_node = JSON.parse(JSON.stringify(G_nodes[local_target]))
+            //console.log('source -> ',local_source_node)
+            //console.log('target -> ',local_target_node)
+            var local_source_G_name = local_source_node['G_name']
+            var local_target_G_name = local_target_node['G_name']
+            if (local_target_G_name ==g_Name) {
+                var layer = {}
+                layer['source'] = local_source
+                layer['target'] = local_target
+                layer['source-name'] = local_source_G_name
+                layer['role'] = local_role
+                layer['linkid'] = i
+                local_list.push(layer)                              
+            }
+        }
+        // consolidate the local_list array
+        return_list = d3.nest()
+                    .key(function (d) { return d.target; }) 
+                    .entries(local_list)
+
+        return return_list
+    }
+    
+
+    function visualise_group(input_constraints) {
+        // invokes visualisation of current State values from existing dataset
+        var loc_nodes=[], loc_links=[], loc_groups =[], loc_constraints=input_constraints;           
+        var layer = {};
+        var list_of_group_leaves = []
+        var isUp = false
+        var list_of_leaves = []
+        var sel_main_leaf = State['MainLeaf']
+        var sel_second_list = State['SecondLeaves']
+        var sel_group = State['GroupId']
+        var sel_group_name = State['GroupId_Name']
+        var sel_g_of_g = State['GofGroupId']
+        var sel_g_of_g_name = State['GofGroupId_Name']
+        var sel_g_type = State['Type']
+        console.log('vizualise begining, the lnodes should be empty ', loc_nodes)
+                
+
+        // Find the right records to visualise:
+        // - start with find main links grouped
+        // - find second leaves linked to main if exists
+        // - find groups linked to main if exists
+        // - find g_of_groups either separate or of a main leaf
+
+        //-----------------------------------------------------
+        // If there is a main leaf selected
+        if (sel_main_leaf != '') {
+            console.log('============ Visualise Group with Main =============')
+
+            main_leaves_grouped = find_leaves_grouped(g_Name=sel_main_leaf, t_list=sel_second_list, g_list=sel_group, g_of_g_list=sel_g_of_g)
+            console.log('main leaves grouped are ',main_leaves_grouped )
+            main_up_leaves_grouped = find_up(g_Name=sel_main_leaf)
+            console.log('main up leaves grouped are ',main_up_leaves_grouped)
+
+            // now select the first element and setup the viewing data
+            var main_first_layer = main_leaves_grouped[0]
+            var main_first_index = Number(main_first_layer['key'])
+            var main_first_value_list = main_first_layer['values']
+            var main_node = JSON.parse(JSON.stringify(G_nodes[main_first_index]))
+            main_node['constraint_type'] = 'main'
+            loc_nodes.push(main_node) 
+            list_of_leaves.push(loc_nodes.length -1)
+            var group_layer = {}
+            group_layer['leaves'] =list_of_leaves
+            group_layer['colour_list']=State['colour_list']
+            group_layer['level']=State['colour_index']
+            group_layer['label']= State['group_label']
+            loc_groups.push(group_layer)
+
+            //-----------------------------------------------------
+            // If there are secondary leaves selected
+            if (sel_second_list != []) {
+                console.log('inside 2nd list ->', sel_second_list)
+                for(var i=0; i<sel_second_list.length; i++) {
+                    // setup the second leaves in data, add a node, change the link
+                    var second_leaf_name = sel_second_list[i]
+                    console.log('second_leaf_name is ->', second_leaf_name)
+                    for (var j=0; j<main_first_value_list.length; j++) {
+                        console.log('second_leaf_name is ->', second_leaf_name)
+                        var local_leaf_layer = main_first_value_list[j]
+                        if (local_leaf_layer['target-name'] == second_leaf_name) {
+                            var second_node_index= local_leaf_layer['target']
+                            var second_node = JSON.parse(JSON.stringify(G_nodes[second_node_index]))
+                            var second_link_index =  local_leaf_layer['linkid']
+                            var second_link = JSON.parse(JSON.stringify(G_links[second_link_index]))
+                            second_node['constraint_type'] = 'leaf'
+                            loc_nodes.push(second_node)
+                            list_of_leaves.push(loc_nodes.length -1)
+                            second_link['source'] = 0
+                            second_link['target'] = loc_nodes.length -1
+                            loc_links.push(second_link)
+                            group_layer = loc_groups.pop()
+                            group_layer['leaves'] =list_of_leaves     
+                            loc_groups.push(group_layer)       
+                            break
+                        }
+                    }
+                }
+            }
+            //-----------------------------------------------------
+            // If there are sub-groups selected
+            if (sel_group_name != []) {
+                // find the link and the group record to connect to
+                console.log('inside visualise group list ->', sel_group_name)
+                for (var k=0; k<sel_group_name.length; k++) {
+                    //1. for each group name in the list, first declare global variables
+                    var def_layer_group_results = []
+                    var layer_group_name = sel_group_name[k]
+                    var layer_group_main_leaf_name = sel_group[k]
+                    var grp_main_node_index = -1, grp_main_link_index =-1, res_layer_index = -1
+                    console.log('layer_group_name is ->', layer_group_name)
+                    //2. find the matching group definition and setup access to results variable
+                    console.log('defined is -> ', defined)
+                    for (var l=0; l<defined.length;l++) {
+                        var loc_defined = defined[l]
+                        console.log('local defined is -> ', loc_defined)
+                        var loc_defined_name = loc_defined['ops']['label']
+                        console.log('local defined name is ',loc_defined_name,' layer group name is ', layer_group_name)
+                        if (loc_defined_name == layer_group_name) {
+                            // record the main leaf if the selected value matcheds this definitions group name (label)
+                            def_layer_group_results = loc_defined['results']
+                            console.log('found the matching leaf ',def_layer_group_results)
+                            break
+                        }   
+                    }
+                    //3. now search through the main_first_Value_links to find the link from the main to the Group Id
+                   for (var m=0; m<main_first_value_list.length; m++) {
+                        console.log('group_leaf_name is ->', layer_group_main_leaf_name)
+                        var group_link_layer = main_first_value_list[m]
+                        console.log('group_link_layer is ->', group_link_layer)
+                        if (group_link_layer['target-name'] == layer_group_main_leaf_name) {
+                            console.log(' it truns out to be a down link ')
+                            isUp = false
+                            grp_main_node_index= group_link_layer['target']
+                            grp_main_link_index =  group_link_layer['linkid']
+                            break
+                        }
+                    }
+                    console.log('grp main node index -> ', grp_main_node_index)
+                    // 4. If grp_main_node_index is still negative, search the up records 
+                    if (grp_main_node_index == -1) {
+                        // first find the right key in the grouped records
+                        for (var n=0; n<main_up_leaves_grouped.length; n++) {
+                            console.log('for each of group up records, check to find which is matching')
+                            var main_up_first_index = Number(main_up_leaves_grouped[n]['key'])
+                            if(main_up_first_index == main_first_index) {
+                                // we have the right up record, now check the values
+                                var main_up_first_values = main_up_leaves_grouped[n]['values']
+                                for (var o=0; o<main_up_first_values.length; o++) {
+                                    // find which one matches the layer_group_main_leaf_name
+                                    var up_group_link_layer = main_first_value_list[m]
+                                    if (up_group_link_layer['source-name'] == layer_group_main_leaf_name) {
+                                        isUp = true
+                                        grp_main_node_index= up_group_link_layer['source']
+                                        grp_main_link_index =  up_group_link_layer['linkid']
+                                        break
+                                    } 
+                                }                                
+                            }  
+                        }
+                    }
+                    if (grp_main_node_index == -1) {
+                        // massive issue, no matching group
+                        console.log('mmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaassssssssssssssssiiiiiiiiiivvvvvvvvvvvvvvvvveeeeeeeeeeee issue')
+                    } 
+                    console.log('step 5 reached')
+                    //5. Find the index of the result layer, where grp_main_node_index is one of the leaves
+                    if (grp_main_node_index != -1) {
+                        console.log('--------------------- find the matching index within the results -----------------')
+                        console.log('grp_main_node_index is -> ', grp_main_node_index)
+                        // check each results layer in the group definition, and each one of its leaves   
+                        for (var p=0; p<def_layer_group_results.length; p++)  {
+                            // grab each layer and check whether the main index is in the leaves
+                            var loc_def_group_res = def_layer_group_results[p]
+                            var loc_def_group_res_leaves = loc_def_group_res['leaves']
+                            console.log('loc_def_group_res is -> ', loc_def_group_res)
+                            for (var q=0; q<loc_def_group_res_leaves.length; q++) {
+                                var local_res_leaf_index = loc_def_group_res_leaves[q]
+                                if (local_res_leaf_index == grp_main_node_index) {
+                                    // if this is the right results layer
+                                    res_layer_index = p
+                                }
+                            }
+                        }
+                        if (res_layer_index == -1) {
+                            // massive issue, no matching results layer
+                            console.log('mmmmmmmmmmmmmmaaaaaaaaaaaaaaaaaassssssssssssssssiiiiiiiiiivvvvvvvvvvvvvvvvveeeeeeeeeeee issue')
+                        }          
+                        console.log('step 6 reached')
+                        if (res_layer_index != -1) {
+                            // 6. setup nodes and links visualisation data 
+                            // - setup the list of node indexes to be added to the group = []
+                            console.log('res layer index is ', res_layer_index)
+                            console.log('def_layer_group_results[res_layer_index] -> ', def_layer_group_results[res_layer_index])
+                            console.log('grp_main_node_index -> ',grp_main_node_index)
+                            console.log('grp_main_link_index -> ', grp_main_link_index)
+                            var res_layer = JSON.parse(JSON.stringify(def_layer_group_results[res_layer_index]))
+                            var res_layer_leaves = res_layer['leaves']
+                            if ('constraints' in res_layer) {
+                                var res_layer_constraints = res_layer['constraints']
+                            } else {
+                                res_layer_constraints = []
+                            }
+                            
+                            var base_group_index = -1
+                            // - first add the main leaf node from the group
+                            console.log('res_layer_constraints something? ',res_layer)
+                            console.log('ISt g g links something? ',g_G_links)
+                            console.log('G_nodes[grp_main_node_index] -> ', g_G_nodes[grp_main_node_index])
+                            console.log('G_links[grp_main_link_index] -> ', g_G_links[grp_main_link_index])                            
+                            var group_main_leaf_node = JSON.parse(JSON.stringify(g_G_nodes[grp_main_node_index]))
+                            var group_main_leaf_link = JSON.parse(JSON.stringify(g_G_links[grp_main_link_index]))
+                            group_main_leaf_node['constraint_type'] = 'g_main'                            
+                            loc_nodes.push(group_main_leaf_node)
+                            console.log(' =============== update constraints next ====================================')
+                            res_layer_constraints = update_constraint(loc_list=res_layer_constraints, current=grp_main_node_index, update=(loc_nodes.length -1))
+                            console.log(' ----------------- past res layer constraints --------------------')
+                            list_of_group_leaves.push(loc_nodes.length -1)
+                            base_group_index = loc_nodes.length -1
+                            if (isUp) {
+                                console.log('isUp is true, target is 0')
+                                group_main_leaf_link['target'] = 0
+                                group_main_leaf_link['source'] = loc_nodes.length -1
+                            } else {
+                                console.log('isUp is false, source is 0')
+                                group_main_leaf_link['source'] = 0
+                                group_main_leaf_link['target'] = loc_nodes.length -1
+                            }                            
+                            loc_links.push(group_main_leaf_link)
+                            // Now we need to iterate through the rest of the leaves
+                            // first pop out the group main leaf from the results
+                            console.log('about to pop out the main leaf from the group, before ->', res_layer_leaves)
+                            const main_leaf_index =  res_layer_leaves.indexOf(grp_main_node_index)
+                            if (main_leaf_index > -1) {res_layer_leaves.splice(main_leaf_index, 1)}
+                            console.log('after pop out the main leaf from the group,  ->', res_layer_leaves)
+                            // add on the rest of the leaves and links
+                            for (var r=0; r<res_layer_leaves.length; r++) {
+                                console.log('res layer leaves  ', res_layer_leaves, ' r is ->', r)
+                                var loc_leaf_link_index = -1
+                                var loc_leaf_link = {}
+                                var loc_second_leaf_index = res_layer_leaves[r]
+                                console.log('G_nodes[loc_second_leaf_index]  ', g_G_nodes[loc_second_leaf_index])
+                                var loc_second_leaf_node = JSON.parse(JSON.stringify(g_G_nodes[loc_second_leaf_index]))
+                                loc_second_leaf_node['constraint_type'] = 'g_leaf'
+                                loc_nodes.push(loc_second_leaf_node)
+                                res_layer_constraints = update_constraint(loc_list=res_layer_constraints, current=loc_second_leaf_index, update=(loc_nodes.length -1))
+                                list_of_group_leaves.push(loc_nodes.length -1)                            
+                                // find link with source = grp_main_node_index, and target = loc_second_leaf_index
+                                console.log('find the source is -> ', grp_main_node_index, ' and the target is -> ', loc_second_leaf_index)
+                                for (var s=0; s< g_G_links.length; s++) {
+                                    // find the link with the right source and target
+                                    var loc_source = g_G_links[s]['source']
+                                    var loc_target = g_G_links[s]['target']
+                                    console.log('index is ',s,' source is -> ', loc_source, ' and target is -> ', loc_target)
+                                    if (loc_source == grp_main_node_index & loc_target == loc_second_leaf_index) {
+                                        console.log ('fffffffound the loc_leaf_link_index -> ', s)
+                                        loc_leaf_link_index = s
+                                        break
+                                    }
+                                }
+                                var loc_second_leaf_link = JSON.parse(JSON.stringify(g_G_links[loc_leaf_link_index]))
+                                loc_second_leaf_link['source'] = base_group_index
+                                loc_second_leaf_link['target'] = loc_nodes.length -1
+                                loc_links.push(loc_second_leaf_link)
+                            }
+                            // 7. Setup Groupos Visualisation data
+                            // first pop the whole groups layer record for the image, and update the groups field to [1]
+                            group_layer = loc_groups.pop()
+                            group_layer['groups'] = [1]     
+                            loc_groups.push(group_layer)   
+                            // now update second group layer, of the subgroup   with the new leaf indexes and push in  
+                            res_layer['leaves'] = list_of_group_leaves
+                            loc_groups.push(res_layer) 
+                            // now setup the constraints data
+                            loc_constraints.concat(res_layer_constraints)
+                        }                            
+                    }
+                }
+            }
+            //-----------------------------------------------------
+            // If there are sub-group of groups selected
+            if (sel_g_of_g_name != []) {
+                // find the link and the group record to connect to
+            }
+        } else if (sel_g_type == 'Type3' & sel_g_of_g_name != []) {
+            console.log('the lnodes should be empty ', loc_nodes)
+            // its type 3, group of groups, insert here GofGroupId_Name
+            var local_annotated_results = []
+            for (var k=0; k<sel_g_of_g_name.length; k++) {
+                //========================================
+                // 1. globals
+                // 1. for each group name in the list, first declare global variables
+                //
+                var def_layer_group_results = []
+                var def_layer_group_index = -1
+                var layer_group_name = sel_g_of_g_name[k]
+                var layer_group_main_leaf_name = sel_g_of_g[k]
+                var grp_main_node_index = -1, grp_main_link_index =-1, res_layer_index = -1
+                console.log('layer_group_name is ->', layer_group_name)
+                //========================================
+                // 2. Find matching group def, and results
+                //2. find the matching group definition and setup access to results variable
+                console.log('the lnodes should be empty ', loc_nodes)
+                console.log('defined is -> ', defined)
+                for (var l=0; l<defined.length;l++) {
+                    var loc_defined = defined[l]
+                    console.log('local defined is -> ', loc_defined)
+                    var loc_defined_name = loc_defined['ops']['label']
+                    console.log('local defined name is ',loc_defined_name,' layer group name is ', layer_group_name)
+                    if (loc_defined_name == layer_group_name) {
+                        // get the results and index from the matching definition
+                        def_layer_group_results = loc_defined['results']
+                        def_layer_group_index = l
+                        console.log('found the matching records from the definition ',def_layer_group_results)
+                        break
+                    }   
+                }
+                console.log('the lnodes should be empty ', loc_nodes)
+                //========================================
+                // 3. annotate
+                //3. now go through the results of the previous groups, and annotate 
+                for (var m=0; m<def_layer_group_results.length; m++) {
+                    // build an annotated list of dicts to sort against
+                    var local_layer = def_layer_group_results[m]
+                    var local_leaves = local_layer['leaves']
+                    for (var n=0; n<local_leaves.length; n++ ) {
+                        var local_leaf_index = local_leaves[n]
+                        //console.log('local leaf index is -> ', local_leaf_index)
+                        var local_leaf_node = JSON.parse(JSON.stringify(g_G_nodes[local_leaf_index]))
+                        if (local_leaf_node['G_name'] == sel_g_of_g) {
+                            // recalc the g_id
+                            let local_G_id = local_leaf_node['G_id']
+                            console.log('actual G_id -> ', local_G_id)
+                            var local_returned_G_id = convert_G_id(local_G_id) 
+                            console.log('returned G_id -> ', local_returned_G_id)
+                            local_leaf_node['key'] = local_returned_G_id
+                            local_leaf_node['def_id'] = m
+                            local_annotated_results.push(local_leaf_node)                 
+                                      
+                        }
+                    }
+                }
+                //========================================
+                // 4. grouping
+                // 4. Now group the results around the new key
+                console.log('=====================grouping the g of g ====================')
+                console.log('raw array ', local_annotated_results)
+                var group_by_gid = groupBy('key')
+                var grouped_records = group_by_gid(local_annotated_results)
+                var grouped_records_results_list = Object.values(grouped_records)
+                console.log('=====================grouping the g of g ====================')
+                console.log('grouped array ', grouped_records)
+                var grouped_res_to_viz = grouped_records_results_list[0]
+                console.log('the grouped_res_to_viz records to work on are -> ', grouped_res_to_viz)
+                console.log('the lnodes should be empty ', loc_nodes)
+                //========================================
+                // 5. Visualise
+                // 5. now to visualise those records
+                var group_list = []
+                for (var n=0; n<grouped_res_to_viz.length; n++) {
+                    // for each we need to to open the definition record, load the leaves and the group record
+                    var local_leaf_ids = []
+                    var the_def_index = grouped_res_to_viz[n]['def_id']
+                    var nested_g_list = grouped_res_to_viz[n]['groups']
+
+                    //========================================
+                    // 1. Get definitions, layer and main leaf data
+                    // First we load the main leaf
+                    console.log('the def index is -> ',the_def_index)
+                    var a_group_results_layer = JSON.parse(JSON.stringify(def_layer_group_results[the_def_index]))
+                    console.log('a group results layer ', a_group_results_layer)
+                    var nested_g_list = a_group_results_layer['groups']
+                    console.log('the nested_g_list is -> ',nested_g_list)
+                    var a_group_results_layer_leaves = a_group_results_layer['leaves']
+                    var a_group_results_layer_main_leaf_index = a_group_results_layer_leaves[0]
+                    var a_group_results_layer_main_node = JSON.parse(JSON.stringify(g_G_nodes[a_group_results_layer_main_leaf_index]))
+                    //========================================
+                    // 2. get the main leaf sorted out first
+                    // setup the main node
+                    a_group_results_layer_main_node['id'] = loc_nodes.length
+                    loc_nodes.push(a_group_results_layer_main_node)
+                    var a_group_results_layer_main_leaf_new_index = loc_nodes.length - 1
+                    local_leaf_ids.push(loc_nodes.length - 1)
+                    console.log('the main lnodes are -> ', loc_nodes)
+                    console.log('the main local leaf ids are ', local_leaf_ids)
+                    //========================================
+                    // 2. secondary leaves
+                    // now we load the second leaves
+                    for (var o=1; o<a_group_results_layer_leaves.length; o++) {
+                        // for each of the second leaves
+                        var a_group_results_layer_second_leaf_index = a_group_results_layer_leaves[o]
+                        var a_group_results_layer_second_node = JSON.parse(JSON.stringify(g_G_nodes[a_group_results_layer_second_leaf_index]))
+                        // setup the second node
+                        a_group_results_layer_second_node['id'] = loc_nodes.length 
+                        loc_nodes.push(a_group_results_layer_second_node)
+                        var a_group_results_layer_second_leaf_new_index = loc_nodes.length - 1                    
+                        local_leaf_ids.push(loc_nodes.length - 1)
+                        console.log('the secondary lnodes are -> ', loc_nodes)
+                        console.log('the secondary local leaf ids are ', local_leaf_ids)
+                    
+                        // setup the link that connects main to this second
+                        for (var p=0; p<g_G_links.length; p++) {
+                            var loc_link = g_G_links[p]
+                            let link_src = loc_link['source']
+                            let link_tgt = loc_link['target']
+                            if (link_src == a_group_results_layer_main_leaf_index & link_tgt == a_group_results_layer_second_leaf_index) {
+                                // add the link record
+                                var a_group_local_link = JSON.parse(JSON.stringify(g_G_links[p]))
+                                a_group_local_link['source'] = a_group_results_layer_main_leaf_new_index
+                                a_group_local_link['target'] = a_group_results_layer_second_leaf_new_index
+                                loc_links.push(a_group_local_link)
+                            }
+                        }
+                    }
+                    //========================================
+                    // 3. push up the main record and secondary leaves into the bulk group description
+                    // now add on the group layer
+                    a_group_results_layer['leaves'] = local_leaf_ids
+                    
+                    loc_groups.push(a_group_results_layer)
+                    var super_group_index = loc_groups.length - 1
+                    // store 1 greater as we will upshift the enclosing group into Position 0 at the end
+                    group_list.push(loc_groups.length)
+
+                    
+                    //========================================
+                    // 4. now check out the nested groups to add to the group description
+                    //
+                    console.log('we need to load a nested group ', nested_g_list)
+                    var nested_grp_ids = []                            
+                    if (nested_g_list.length > 0) {
+                        for (var p=0; p<nested_g_list.length; p++) {
+                            var nested_ids = []
+                            var nested_results_layer_index = nested_g_list[p]
+                            var nested_results_layer = JSON.parse(JSON.stringify(g_G_groups[nested_results_layer_index]))
+                            console.log('we have a nested_results_layer ', nested_results_layer)
+                            //we need to load the main first
+                            var nested_results_layer_leaves = nested_results_layer['leaves']
+                            var nested_results_layer_main_index = nested_results_layer_leaves[0]
+                            var nested_results_layer_main = JSON.parse(JSON.stringify(g_G_nodes[nested_results_layer_main_index]))
+                            nested_results_layer_main['id'] = loc_nodes.length
+                            loc_nodes.push(nested_results_layer_main)
+                            nested_ids.push(loc_nodes.length - 1)
+                            var nested_results_layer_main_new_index = loc_nodes.length - 1
+                    
+                            // setup the link that connects original main to this sub group main
+                            for (var r=0; r<g_G_links.length; r++) {
+                                var loc_link = g_G_links[r]
+                                let link_src = loc_link['source']
+                                let link_tgt = loc_link['target']
+                                if (link_src == a_group_results_layer_main_leaf_index & link_tgt == nested_results_layer_main_index) {
+                                    // add the link record
+                                    var a_group_local_link = JSON.parse(JSON.stringify(g_G_links[r]))
+                                    a_group_local_link['source'] = a_group_results_layer_main_leaf_new_index
+                                    a_group_local_link['target'] = nested_results_layer_main_new_index
+                                    loc_links.push(a_group_local_link)
+                                    break
+                                }
+                                if (link_tgt == a_group_results_layer_main_leaf_index & link_src == nested_results_layer_main_index) {
+                                    // add the link record in reverse order
+                                    var a_group_local_link = JSON.parse(JSON.stringify(g_G_links[r]))
+                                    a_group_local_link['target'] = a_group_results_layer_main_leaf_new_index
+                                    a_group_local_link['source'] = nested_results_layer_main_new_index
+                                    loc_links.push(a_group_local_link)
+                                    break
+                                }
+                            }
+                            // we now need to load the secondary leaves
+                            for (var q=1; q<nested_results_layer_leaves.length; q++) {
+                                var nested_results_layer_second_index = nested_results_layer_leaves[q]
+                                var nested_results_layer_second = JSON.parse(JSON.stringify(g_G_nodes[nested_results_layer_second_index]))
+                                nested_results_layer_second['id'] = loc_nodes.length                            
+                                loc_nodes.push(nested_results_layer_second)
+                                nested_ids.push(loc_nodes.length - 1)
+                                var nested_results_layer_second_new_index = loc_nodes.length - 1
+                                // setup the link that connects original main to this sub group main
+                                for (var s=0; r<g_G_links.length; s++) {
+                                    var loc_link = g_G_links[s]
+                                    let link_src = loc_link['source']
+                                    let link_tgt = loc_link['target']
+                                    if (link_src == nested_results_layer_main_index & link_tgt == nested_results_layer_second_index) {
+                                        // add the link record
+                                        var a_group_local_link = JSON.parse(JSON.stringify(g_G_links[p]))
+                                        a_group_local_link['source'] = nested_results_layer_main_new_index
+                                        a_group_local_link['target'] = nested_results_layer_second_new_index
+                                        loc_links.push(a_group_local_link)
+                                        break
+                                    }
+                                }
+                            }
+                            // load the nested group
+                            nested_results_layer['leaves'] = nested_ids
+                            loc_groups.push(nested_results_layer)
+                            nested_grp_ids.push(loc_groups.length)
+                            var loc_grp_len = loc_groups.length
+                            //
+                            // each time i come through got to add this group into my supergroups record
+                            // 
+                            var tmp_list = []
+                            var tmp_loc_groups = loc_groups[super_group_index]['groups']
+                            console.log('what type is the loc groups? ', typeof(tmp_loc_groups))
+                            console.log('what is the loc groups? ', tmp_loc_groups)
+                            tmp_loc_groups.pop()
+                            tmp_loc_groups.push(loc_grp_len)
+                            
+                            
+
+                            console.log('================== at the nested level ========================')
+                            console.log('the loc_grp_len is -> ', loc_grp_len)
+                            console.log('================== at the groups level ========================')
+                            console.log('the l_groups are -> ', loc_groups)
+                            console.log('the local leaf ids are ', local_leaf_ids)  
+                        }
+                        
+                    }
+
+                    console.log('================== at the groups level ========================')
+                    console.log('the l_groups are -> ', loc_groups)
+                    console.log('the local leaf ids are ', local_leaf_ids)
+                    
+                    
+                }
+                // finally add on the group of groups level
+                group_layer = {}
+                group_layer['leaves'] =[]
+                group_layer['groups'] = group_list
+                group_layer['colour_list']=State['colour_list']
+                group_layer['level']=State['colour_index']
+                group_layer['label']= State['group_label']
+                loc_groups.unshift(group_layer)
+            }
+            
+        } else {
+            // else there is a problem
+
+        }
+        
+           
+        graph['nodes'] = loc_nodes
+        graph['links'] = loc_links
+        graph['groups'] = loc_groups
+        graph['constraints'] = loc_constraints
+
+        console.log('================ graph value ====================')
+        console.log(graph)
+
+        screen_svg.selectAll("*").remove();
+        if (g_def != null) {
+            g_def.clear
+        }
+        // load the visualisation
+        
+        graph_define(graph=graph, local_screen_svg=screen_svg, local_theme = theme)
+        
+    }
+
+    function groupBy(key) {
+        return function group(array) {
+          return array.reduce((acc, obj) => {
+            const property = obj[key];
+            acc[property] = acc[property] || [];
+            acc[property].push(obj);
+            return acc;
+          }, {});
+        };
+    }
+
+    function convert_G_id(myG_id) {
+        // if this has a dash and some sub-numbers after the id, remove them and return
+        //console.log('the input g id is ', myG_id)
+        let local_string_index = myG_id.indexOf('-')
+        //console.log('the local string index is ', local_string_index)
+        //console.log('the local string is ', myG_id.slice(0, local_string_index))
+        if (local_string_index != -1) {
+            return myG_id.slice(0, local_string_index);
+        } else {
+            return myG_id
+        }
+    }
+
+    function update_constraint(loc_list, current, update) {
+        console.log(' ===============^^^^^^^^^^^^^ update constraints')
+        console.log(' local list ', loc_list)
+        console.log(' current ', current, '  update ', update)
+        for (var i=0; i<loc_list.length; i++) {
+            var constraint_layer = loc_list[i]
+            if (constraint_layer['left'] == current) {
+                constraint_layer['left'] = update                
+            }
+            if (constraint_layer['right'] == current) {
+                constraint_layer['right'] = update                
+            }
+        }
+        return loc_list
+    }
+
+    
+
+    
+
+    function find_leaves_grouped(g_Name, t_list, g_list, g_of_g_list) {
+        var local_list = []
+        var grouped_list = []
+        var return_list = []
+        var num_links_needed =  t_list.length + g_list.length + g_of_g_list.length
+        if (num_links_needed==0) {
+            num_links_needed=1;
+        }
+        console.log('============= find correct results ==================')
+        console.log('gname is -> ', g_Name)
+        console.log('t list is -> ', t_list)
+        console.log('g list is -> ', g_list)
+        console.log('g_of_g list is -> ', g_of_g_list)
+        console.log('============ links are ===================')
+        console.log(G_links)
+        
+        var max_links = 0
+        //  as we process through the links array, annotate the number of times G_Name appears and the target
+        for(var i=0; i< G_links.length; i++) {
+            //console.log('---------------------------------')
+            //console.log('lniks ', G_links[i])
+            var local_link = JSON.parse(JSON.stringify(G_links[i]))
+            var local_source = local_link['source']
+            var local_target = local_link['target']
+            var local_role = local_link['role']
+            var local_source_node = JSON.parse(JSON.stringify(G_nodes[local_source]))
+            var local_target_node = JSON.parse(JSON.stringify(G_nodes[local_target]))
+            //console.log('source -> ',local_source_node)
+            //console.log('target -> ',local_target_node)
+            var local_source_G_name = local_source_node['G_name']
+            var local_target_G_name = local_target_node['G_name']
+            if (local_source_G_name ==g_Name) {
+                var layer = {}
+                layer['source'] = local_source
+                layer['target'] = local_target
+                layer['target-name'] = local_target_G_name
+                layer['source-name'] = local_source_node
+                layer['role'] = local_role
+                layer['linkid'] = i
+                //console.log('????????????? Link with the right source name ????????????????')
+                //console.log('source name is -> ', local_source_node)
+                //console.log('target name is -> ', local_target_G_name)
+                //console.log('link id is -> ', i)
+                if (g_of_g_list.length == 0 & g_list.length == 0  & t_list.length == 0) {
+                    // if main leaf is the only one selected
+                    local_list.push(layer)
+                    //console.log ('saved because no children')
+                }
+                if (t_list.length > 0 & t_list.includes(local_target_G_name)) {
+                    // assume main leaf and second leaf
+                    local_list.push(layer)
+                    //console.log ('saved because includes second leaves')
+                }
+                if (g_list.length > 0 & g_list.includes(local_target_G_name)) {
+                    //  assume main leaf and group
+                    local_list.push(layer)
+                    //console.log ('saved because includes group connection')
+                }
+                if (g_of_g_list.length > 0 & g_of_g_list.includes(local_target_G_name)) {
+                    // assume main leaf and group of groups, inner reference (i.e. linked to the group inside the group)
+                    local_list.push(layer)
+                }                               
+            }
+        }
+        console.log('================ local list ========================')
+        console.log(local_list)
+        // consolidate the local_list array
+        grouped_list = d3.nest()
+                    .key(function (d) { return d.source; }) 
+                    .entries(local_list)
+
+        console.log(grouped_list)
+        console.log('===================== reduce the array ===========')
+        console.log('the total number is ', num_links_needed)
+                    // reduce the set to only contain the correct number of values
+        for (var j=0; j<grouped_list.length; j++) {
+            var local_layer = grouped_list[j]
+            console.log('local layer ', local_layer)
+            var local_value_list = local_layer['values']
+            if (local_value_list.length >= num_links_needed) {
+                return_list.push(local_layer)
+            }
+        }
+        console.log(return_list)
+
+        return return_list
+    }
+
+    
+
+    
+
+    
+
+    function role__setup(formname, ctrlname, labelname, def_role_text, option_role) {
+        //setup main leaf
+        var mainform = document.getElementById(formname);
+        var mainLeaf = document.getElementById(ctrlname);
+        var mainLeafLabel = document.getElementById(labelname);
+        //var mainLeafLabel2 = document.getElementById(ctrlname+"Label");
+        console.log(';;;;;;;;;;;;;;;;;;setup role;;;;;;;;;;;;;;;;;;;;;;')
+        console.log(mainLeaf)
+        mainLeaf.options.length = 0;
+        // setup default first blank option
+        var def_role = document.createElement("option");            
+        //assign values to the <option>
+        def_role.text = option_role;
+        def_role.value = option_role;
+        def_role.defaultSelected = true;
+        def_role.selected = true;
+        mainLeaf.add(def_role);
+        mainLeafLabel.text = def_role_text
+        mainform.style.visibility = "visible";
+    }
+
+    function return_Type2_group_targets(current) {
+        var locallist = []
+        console.log('############ Find Group Targets for ##############')
+        console.log(current)
+        console.log('defined is ', defined)
+        for(var i=0; i<defined.length; i++) {
+            var elem = defined[i]
+            var G_name_dict = elem['leaves'][0]
+            var G_name = G_name_dict['G_name']
+            console.log('elem is ->', elem)
+            console.log('gname is -> ', G_name)
+            for(var i=0; i<G_Schema_List.length; i++) {
+                var g_elem = G_Schema_List[i]
+                console.log('g_elem is -> ',g_elem)
+                var source = g_elem['source_name']
+                var target = g_elem['target_name']
+                console.log(source, target)
+                if ((source == current & target == G_name)||(source == G_name & target == current)) {
+                    //find group name and push
+                    var grp_name = elem['ops']['label']
+                    console.log('loading group name -> ', grp_name)
+                    locallist.push(grp_name)
+                }
+            }
+        }
+        return locallist
+    }
+
+    
+
+    function return_targets(current) {
+        var locallist = []
+        console.log('##########################')
+        console.log(current)
+        for(var i=0; i<G_Schema_List.length; i++) {
+            var elem = G_Schema_List[i]
+            var source = elem['source_name']
+            var target = elem['target_name']
+            if (source == current) {
+                locallist.push(target)
+            }
+        }
+        return locallist
+    }
+
+    function return_role(main, second) {
+        for(var i=0; i<G_Schema_List.length; i++) {
+            var elem = G_Schema_List[i]
+            var source = elem['source_name']
+            var target = elem['target_name']
+            if (source == main & target == second) {
+                return elem['role']
+            }
+        }
+        return 'PROBLEM!!'
+
+    }
+
+    function form__setup(formname, ctrlname, labelname, def_blank_text, option_array) {
+        //setup main leaf
+        var mainform = document.getElementById(formname);
+        var mainLeaf = document.getElementById(ctrlname);
+        var mainLeafLabel = document.getElementById(labelname);
+        //var mainLeafLabel2 = document.getElementById(ctrlname+"Label");
+        console.log(';;;;;;;;;;;;;;;;;;setup a select element;;;;;;;;;;;;;;;;;;;;;;')
+        console.log(mainLeaf)
+        mainLeaf.options.length = 0;
+        // setup default first blank option
+        var def_blank = document.createElement("option");            
+        //assign values to the <option>
+        def_blank.text = def_blank_text;
+        def_blank.value = "none";
+        def_blank.defaultSelected = true;
+        def_blank.selected = true;
+        def_blank.hidden = true;
+        def_blank.disabled = true;
+        mainLeaf.add(def_blank);
+        // setup select options
+        for(var i=0; i < option_array.length; i++) {
+            //create an <option> to add the <select>
+            var child = document.createElement("option");            
+            //assign values to the <option>
+            child.text = option_array[i];
+            child.value = option_array[i];
+            mainLeaf.add(child);
+        }
+        mainLeafLabel.text = def_blank_text        
+        mainform.style.visibility = "visible";
+    }
+
+    function arrayRemove(arr, value) { 
+    
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
+
+    
+
+
+
+</script>
+   
+{% endblock %}

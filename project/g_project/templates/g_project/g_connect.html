@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% set title = 'Server Connection' %}
+
+{% block content %}
+    <br>
+    <h1>Query Grakn</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.server.label }}<br>
+            {{ form.server(size=120) }}<br>
+            {{ form.port.label }}<br>
+            {{ form.port(size=64) }}<br>
+            {{ form.database.label }}<br>
+            {{ form.database(size=120) }}<br>
+            {{ form.description.label }}<br>
+            {{ form.description(size=120) }}<br>
+            {{ form.query.label }}<br>
+            {{ form.query(cols = 120, rows = 12) }}<br>   
+            
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

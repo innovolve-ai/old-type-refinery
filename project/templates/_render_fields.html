@@ -1,0 +1,14 @@
+{% macro render_select(field) %}
+<div class="col-lg-2">
+    <div class="form-floating "  id="formTheme">
+        {{ field(class_='form-select form-select-sm ', **kwargs) | safe }}
+        <ul>
+            {% for error in field.errors %}
+                <li style="color:red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        <label for="{{field.name}}" id="selThemeLabel2">{{field.label.text}}</label>
+    </div>
+</div>
+
+{% endmacro %}

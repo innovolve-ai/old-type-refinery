@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+
+{% set title = 'Graql Viz' %}
+
+{% block layout %}
+<button class="btn btn-primary ms-auto" id="offcanvastoggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" href="#offcanvasRight" aria-controls="offcanvasRight">
+    
+    Options
+</button>
+
+   
+
+{% endblock %}
+
+
+<!-- off canvas -->
+{% block canvas %}
+
+<div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h2 id="offcanvasRightLabel">Options</h2>
+      <button type="button" id="offcanvasclose" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active bg-active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Theme</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link bg-active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Forces</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link bg-active" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Properties</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container-fluid">
+                    <h4>Nodes</h4>
+                    <div class="row">
+                        
+                    </div>
+        
+                </div>
+               
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">.profile..</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">.contact..</div>
+          </div>
+    </div>
+  </div>
+
+  {% endblock %}
+
+
+{% block content %}
+
+<button type="button" id='webcola' class="btn btn-primary btn-sm" onclick='showCola()'  >Use webCola</button>
+<button type="button" id='shadows' class="btn btn-primary btn-sm" onclick='showAttributes()'  >Show Shadows</button>
+<button type="button" id='groups' class="btn btn-primary btn-sm" onclick='showGroups()'  >Show Groups</button>
+<button type="button" id='disconnect' class="btn btn-primary btn-sm" onclick='disconAttributes()'  >Disconnect Attributes</button>            
+<button type="button" id='constraints' class="btn btn-primary btn-sm disabled" onclick='remConstraints()'  >Show Constraints</button>            
+     
+<div class="row"> 
+    <div class="full_viz svg-container-large " id="full_viz">
+    </div>
+</div>
+
+
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static' , filename='visual/G_graph8.js') }}" crossorigin='anonymous'></script>
+<script type="text/javascript" src="{{ url_for('static' , filename='visual/d3force.js') }}" crossorigin='anonymous'></script>
+<script src="https://cdn.jsdelivr.net/gh/tgdwyer/WebCola/WebCola/cola.min.js"></script>
+
+   
+<script>
+    // Make buttons invisible
+    document.getElementById("disconnect").style.visibility = "hidden";
+    document.getElementById("shadows").style.visibility = "hidden";
+    document.getElementById("groups").style.visibility = "hidden";
+    document.getElementById("constraints").style.visibility = "hidden";
+
+    
+    
+    var colaGraph = {{ colagraph | tojson }};
+    var G_Grouped = colaGraph['grouped']
+    
+    console.log('============ import cola =======')
+    console.log('colagraph is ', colaGraph)
+    // import Grakn data
+    var colourlist = {{ colorlist | tojson }};
+    theme = {{ theme | tojson }};
+    console.log('colourlist is ', colourlist)
+    console.log('theme is ', theme)
+
+    // Make buttons disabled if no groups
+    if (Object.keys(G_Grouped).length == 0) {
+        document.getElementById("disconnect").disabled = true;
+        document.getElementById("shadows").disabled = true;
+        document.getElementById("groups").disabled = true;
+        document.getElementById("constraints").disabled = true;
+    }
+
+    
+    // colour theme
+    var theme = {
+        attribute: {colorlist: "Oranges", cindex: 7, tcolorlist: "Greys", tindex: 0, label_name: true, label_value: true },
+        entity: {colorlist: "Blues", cindex: 7, tcolorlist: "Greys", tindex: 0, label_name: true, label_iid: true },
+        relation: {colorlist: "Blue-Green", cindex: 6, tcolorlist: "Greys", tindex: 7, label_name: true, label_iid: true, label_offset:0 , radius:5 },
+        shadow: {colorlist: "Oranges", cindex: 2, tcolorlist: "Greys", tindex: 7 }
+    } 
+    
+    
+    // tooltip options
+    var tt_options = {
+        title: true,
+        name: true,
+        role: true,
+        value: true,
+        boldtitle: true,
+        subtitle: true,
+        type: true,
+        g_G_name: true,
+        g_role: true,
+        v_G_name: true,
+        v_Value: true,
+        where: true,
+        number: true
+
+    }
+    
+
+    // default colour variables
+    var ent_colour = '#03396c';
+    var ent_t_colour = 'white';
+    var att_colour = '#ff4d00';
+    var att_t_colour = 'white';
+    var shad_colour = "#ff4d00";
+    var shad_t_colour = 'white';
+    var rel_colour = '#007777';
+    var rel_t_colour = 'black';
+    var colours;
+
+    colors = colourlist
+    // load the colours from the theme
+    ent_colour = colors.find(colour => colour.name == theme.entity.colorlist)['colors'][theme.entity.cindex];
+    ent_t_colour = colors.find(colour => colour.name == theme.entity.tcolorlist)['colors'][theme.entity.tindex];
+    att_colour = colors.find(colour => colour.name == theme.attribute.colorlist)['colors'][theme.attribute.cindex];
+    att_t_colour = colors.find(colour => colour.name == theme.attribute.tcolorlist)['colors'][theme.attribute.tindex];
+    shad_colour = colors.find(colour => colour.name == theme.shadow.colorlist)['colors'][theme.shadow.cindex];
+    shad_t_colour = colors.find(colour => colour.name == theme.shadow.tcolorlist)['colors'][theme.shadow.tindex];
+    rel_colour = colors.find(colour => colour.name == theme.relation.colorlist)['colors'][theme.relation.cindex];
+    rel_t_colour = colors.find(colour => colour.name == theme.relation.tcolorlist)['colors'][theme.relation.tindex];
+    
+    
+    // default dimension variables
+    const textPadding = 8;
+    const corner = 5;
+    const grp_corner = 8;
+    const pad = 5;
+    var mouseTipX = 20;
+    var mouseTipY = 20;
+
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //      B. Setup SVG's and constraints
+    //----------------------------------------------------------------------------------
+    // add svg for the define function -left side of screen
+    var screen_svgContainer = d3.select("#full_viz");
+    var screen_svgWidth = parseInt(screen_svgContainer.style("width"),10);     
+    var screen_svgHeight = parseInt(screen_svgContainer.style("height"),10); 
+    const height = screen_svgHeight;
+    const width = screen_svgWidth;
+    
+    
+    console.log('svg width is -> ',screen_svgWidth)
+    console.log('svg height is -> ',screen_svgHeight)
+    
+    
+
+    var main_viz_svg = d3.select("#full_viz")
+        .append("svg")
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("viewBox", "0 0 " + screen_svgWidth.toString() + ' ' + screen_svgHeight.toString())
+        .classed('svg-content', true)
+        .call(d3.zoom().on("zoom", function () {
+            main_viz_svg.attr("transform", d3.event.transform)
+        }))
+        .on("dblclick.zoom", null)
+        .append("g");
+
+    
+
+/*
+<button type="button" id='webcola' class="btn btn-primary btn-sm" onclick='Sel_webcola()'  >Use webCola</button>
+<button type="button" id='shadows' class="btn btn-primary btn-sm" onclick='Sel_shadows()' disabled >Show Shadows</button>
+<button type="button" id='groups' class="btn btn-primary btn-sm" onclick='Sel_groups()' disabled >Show Groups</button>
+<button type="button" id='disconnect' class="btn btn-primary btn-sm" onclick='Sel_disconn()' disabled >Disconnect Attributes</button>
+<button type="button" id='constraints' class="btn btn-primary btn-sm" onclick='Sel_constrain()' disabled >Remove Constraints</button>
+
+if (JSON.stringify(colaGraph['grouped']) == '{}') {
+        console.log('I am disabling buttons now')
+        basicButton.disabled = true;
+        disconButton.disabled = true;
+        groupButton.disabled = true;
+        detailButton.disabled = true;
+    } else {
+        console.log('I am enabling buttons now')
+        basicButton.disabled = false;
+        disconButton.disabled = false;
+        groupButton.disabled = false;
+        detailButton.disabled = false;
+    }
+*/    
+
+    // logic variables and interactions
+    var seeCola = false;
+    var connected = true;
+    var shadows = false;
+    var dgroups = false;
+    var addconstraints = false;
+    var graph1 = null;
+    
+    
+    
+    document.onkeyup = keyhandler;
+    function keyhandler(e) {
+        if (e.keyCode === 32) {
+            disconAttributes();
+        }
+    }
+    function showCola() {
+        console.log('entering show cola ')
+        var x = document.getElementById("webcola")
+        console.log('x is ->', x)
+        if (seeCola) {
+            // Make buttons invisible
+            document.getElementById("disconnect").style.visibility = "hidden";
+            document.getElementById("shadows").style.visibility = "hidden";
+            document.getElementById("groups").style.visibility = "hidden";
+            document.getElementById("constraints").style.visibility = "hidden";
+            //Add the d3 graph
+            console.log('I want to see the d3')
+            //Set the toggle to false, 
+            seeCola = false;
+            // first, kill off anything hanging onto the local svg
+            main_viz_svg.selectAll('g').remove();
+            console.log('local svg is -> ', main_viz_svg)
+            graph1 = null;
+            // show the d3
+            render(colaGraph, main_viz_svg);
+            x.innerHTML = 'Use webCola'
+        } else {
+            // Make buttons invisible
+            document.getElementById("disconnect").style.visibility = "visible";
+            document.getElementById("shadows").style.visibility = "visible";
+            document.getElementById("groups").style.visibility = "visible";
+            document.getElementById("constraints").style.visibility = "visible";
+            // set the toggle to true     
+            console.log('I want to see the colagraph')           
+            seeCola = true;
+            // first, kill off anything hanging onto the local svg
+            main_viz_svg.selectAll('g').remove();
+            console.log('local svg is -> ', main_viz_svg)
+            // Add the webcola graph
+            graph1 = new G_graph(colaGraph, main_viz_svg)                   
+            x.innerHTML = 'Back to d3 force'
+        }
+    }
+    function remConstraints() {
+        var x = document.getElementById("constraints")
+        var y = document.getElementById("disconnect")
+        if (addconstraints) {
+            graph1.removeConstraints();            
+            addconstraints = false;
+            x.innerHTML = 'Show Constraints'
+        } else {            
+            graph1.addConstraints();
+            addconstraints = true;
+            connected = true;
+            x.innerHTML = 'Disconnect Attributes'
+            x.innerHTML = 'Remove Constraints'
+        }
+    }
+    function showAttributes() {
+        var x = document.getElementById("shadows")
+        var y = document.getElementById("disconnect")
+        if (shadows) {
+            graph1.backtoBasics();
+            shadows = false;
+            x.innerHTML = 'Show Shadows'
+        } else {
+            graph1.addShadows();
+            shadows = true;
+            connected = true;
+            x.innerHTML = 'Disconnect Attributes'
+            x.innerHTML = 'Basic Grakn'
+        }
+    }
+    function showGroups() {
+        var x = document.getElementById("groups")
+        var y = document.getElementById("disconnect")
+        if (dgroups) {
+            graph1.dissolveGroups();
+            dgroups = false;
+            x.innerHTML = 'Show Groups'
+        } else {
+            graph1.setupGroups();
+            connected = true;
+            x.innerHTML = 'Disconnect Attributes'
+            dgroups = true;
+            x.innerHTML = 'Dissolve Groups'
+        }
+    }
+    function disconAttributes() {
+        var x = document.getElementById("disconnect")
+        if (connected) {
+            graph1.disconnAttributes();
+            connected = false;
+            x.innerHTML = 'Connect Attributes'
+        } else {
+            graph1.connAttributes();
+            connected = true;
+            x.innerHTML = 'Disconnect Attributes'
+        }
+    }
+
+    
+
+    console.log('buttons are loaded')
+
+
+
+    // setup the data load into the graph
+    render(colaGraph, main_viz_svg);
+
+
+</script>
+   
+{% endblock %}
