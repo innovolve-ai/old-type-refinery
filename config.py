@@ -12,6 +12,12 @@ class Config:
         pass
 
 
+class DockerConfig(Config):
+    DEBUG = True
+    MONGODB_SETTINGS = {
+        'host': os.environ.get('MONGO_URI')
+    }
+
 class DevelopmentConfig(Config):
     DEBUG = True
     MONGODB_SETTINGS = {

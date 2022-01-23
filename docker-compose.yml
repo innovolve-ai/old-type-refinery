@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+
+  mongo:
+    image: mongo:4
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - mongodata:/data/db
+    environment:
+      - TZ=${GLOBAL_TZ}
+      - NODE_ENV
+      - MONGO_URI
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+    networks:
+      - internal
+
+  mongoui:
+    image: mongo-express
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=${GLOBAL_TZ}
+      - ME_CONFIG_MONGODB_SERVER=${MONGO_HOST}
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - ME_CONFIG_MONGODB_URL=${MONGO_URI}
+    ports:
+      - 8081:8081
+    networks:
+      - internal
+
+  refinery:
+    image: python
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=${GLOBAL_TZ}
+      - MONGO_URI=${MONGO_URI}
+      - ENV_TYPE=${ENV_TYPE}
+    working_dir: /refinery
+    volumes:
+      - ./:/refinery
+    entrypoint: ['bash','./flashrun.sh']  
+    ports:
+      - 8080:5000
+    networks:
+      - internal
+
+
+networks:
+  internal:
+
+volumes:
+  mongodata:
