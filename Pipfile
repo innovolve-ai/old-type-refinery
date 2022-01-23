@@ -17,5 +17,5 @@ flask-assets = "*"
 flask-mongoengine = "*"
 flask-login = "*"
 flask-bcrypt = "*"
-grakn-client = "*"
-
+typedb-client = "*"
+flask-cors = "*"
