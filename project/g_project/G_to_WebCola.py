@@ -1,4 +1,4 @@
-from grakn.client import *
+from typedb.client import *
 from loguru import logger
 import json
 import copy
@@ -274,7 +274,7 @@ def convert_res_to_cola(nodes, edges, G_types):
 @logger.catch
 def get_data(gConnect):    
     g_uri = gConnect['url'] + ':' + gConnect['port']
-    with Grakn.core_client(g_uri) as client:
+    with TypeDB.core_client(g_uri) as client:
         with client.session(gConnect['database'], SessionType.DATA) as session:
             with session.transaction(TransactionType.READ) as read_transaction:
                 answer_iterator = read_transaction.query().match(gConnect['gQuery'])

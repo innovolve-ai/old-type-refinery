@@ -2,6 +2,7 @@ from flask import Flask
 from flask_mongoengine import MongoEngine, MongoEngineSessionInterface
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 from config import *
 
 
@@ -32,6 +33,7 @@ def create_app(config_filename=None):
     app.config.from_object(config_filename)
     initialize_extensions(app)
     register_blueprints(app)
+    CORS(app)
     return app
 
 
