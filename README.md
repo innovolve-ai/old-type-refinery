@@ -3,8 +3,12 @@
 ## Run in docker
 
 ```powershell
-docker run --rm -it -v ${PWD}:/build/source -v /var/run/docker.sock:/var/run/docker.sock -p 5000:5000 -w /build/source python bash
+docker compose up
 ```
+
+Open the browser and navigate to http://localhost:8080/ to view the site.
+
+Open the browser and navigate to http://localhost:8081/ to view the mongo database.
 
 ## Installation
 
