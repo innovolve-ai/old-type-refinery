@@ -9,8 +9,14 @@ from project import db, bcrypt
 from project.g_project import routes
 from loguru import logger
 from project.users import theme_base as t
+import os
 
-
+def_gConnect = {
+        "url": os.environ.get('TYPEDB_HOST', 'localhost'),
+        "port": os.environ.get('TYPEDB_PORT', '1729'),
+        "database": os.environ.get('TYPEDB_DB', 'pm_4'),
+        "gQuery": ""
+      }
 
 ################
 #### routes ####
@@ -19,7 +25,7 @@ from project.users import theme_base as t
 @users_blueprint.route('/profile')
 @login_required
 def profile():
-    return render_template('users/profile.html')
+    return render_template('users/profile.html', gConnect=def_gConnect)
 
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
@@ -37,7 +43,7 @@ def register():
         session["USERNAME"] = new_user["email"]
         flash('Thanks for registering, {}!'.format(new_user.email))
         return redirect(url_for('users.profile'))
-    return render_template('users/register.html', form=form)
+    return render_template('users/register.html', form=form, gConnect=def_gConnect)
 
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
@@ -62,7 +68,7 @@ def login():
                 return redirect(url_for('users.profile'))
 
         flash('ERROR! Incorrect login credentials.')
-    return render_template('users/login.html', form=form)
+    return render_template('users/login.html', form=form, gConnect=def_gConnect)
 
 
 @users_blueprint.route('/logout')

@@ -95,9 +95,9 @@
         <script>
             //global variables
             gConnect = {
-                url: "localhost",
-                port: "48555",
-                keyspace: "pm_2",
+                url: "{{ gConnect.url }}",
+                port: "{{ gConnect.port }}",
+                keyspace: "{{ gConnect.database }}",
                 gQuery: ""
             }
         </script>
