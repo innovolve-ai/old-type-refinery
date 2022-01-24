@@ -46,7 +46,7 @@ def g_connect():
             # return the template and data
             return redirect('/visualise')
             
-    return render_template('g_project/g_connect.html', form=form)
+    return render_template('g_project/g_connect.html', form=form, gConnect=g.def_gConnect)
 
 @g_project_blueprint.route('/visualise', methods=['get', 'post'])
 @login_required
@@ -54,7 +54,7 @@ def g_visualise():
     colour_list = session['COLOUR']
     colaGraph = session['COLAGRAPH']
     theme = session["THEME"]
-    return render_template('g_project/g_viz2.html', colagraph=colaGraph, colorlist=colour_list, theme=theme)
+    return render_template('g_project/g_viz2.html', colagraph=colaGraph, colorlist=colour_list, theme=theme, gConnect=g.def_gConnect)
 
 
 @g_project_blueprint.route('/group', methods=['get', 'post'])
@@ -63,7 +63,7 @@ def g_group():
     colour_list = session['COLOUR']
     colaGraph = session['COLAGRAPH']
     theme = session["THEME"]    
-    return render_template('g_project/temp3.html', colagraph=colaGraph, colorlist=colour_list, theme=theme)
+    return render_template('g_project/temp3.html', colagraph=colaGraph, colorlist=colour_list, theme=theme, gConnect=g.def_gConnect)
 
 @g_project_blueprint.route('/get_group', methods=['get', 'post'])
 @login_required
