@@ -18,7 +18,7 @@ Update to match your system. roughly 50% of available memory is recommended.
 docker compose up
 ```
 
-Open the browser and navigate to http://localhost:8080/ to view the site.
+Open the browser and navigate to http://localhost:8080/login to view the site. First time use register to create a new account. First time data load will take a few minutes to pupulate typedb, but you can continue with your user registration.
 
 Open the browser and navigate to http://localhost:8081/ to view the mongo database.
 
