@@ -46,12 +46,49 @@ services:
     working_dir: /refinery
     volumes:
       - ./:/refinery
-    entrypoint: ['bash','./flashrun.sh']  
+    entrypoint: ['bash','./flaskrun.sh']  
     ports:
       - 8080:5000
     networks:
       - internal
 
+  typedb:
+    image: vaticle/typedb
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=${GLOBAL_TZ}
+      - TYPEDB_HOST=${TYPEDB_HOST}
+      - TYPEDB_PORT=${TYPEDB_PORT}
+      - TYPEDB_DB=${TYPEDB_DB}
+    volumes:
+      - ./typedb/data:/opt/typedb-all-linux/server/data/
+      - ./typedb/init:/setup
+      - ./typedb/startup.sh:/startup.sh
+    command: bash -c /startup.sh
+    ports:
+      - 1729:1729
+    networks:
+      - internal
+
+  typedb-loaddata:
+    image: python
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - TZ=${GLOBAL_TZ}
+      - TYPEDB_HOST=${TYPEDB_HOST}
+      - TYPEDB_PORT=${TYPEDB_PORT}
+      - TYPEDB_DB=${TYPEDB_DB}
+    working_dir: /refinery
+    volumes:
+      - ./:/refinery
+    entrypoint: ['bash','./typedb/init/loaddata.sh']  
+    networks:
+      - internal
+    depends_on:
+      - typedb
 
 networks:
   internal:

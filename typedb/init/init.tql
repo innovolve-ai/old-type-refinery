@@ -1,0 +1,4 @@
+database create refinery
+transaction refinery schema write
+source /setup/schema.tql
+commit
