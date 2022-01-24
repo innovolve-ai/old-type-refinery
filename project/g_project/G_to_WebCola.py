@@ -2,7 +2,7 @@ from typedb.client import *
 from loguru import logger
 import json
 import copy
-
+import os
  
 
 gquery = "match $a isa log, has logName 'L1'; "	
@@ -305,10 +305,10 @@ def main(gConnect):
 
 
 def_gConnect = {
-        'url': "localhost",
-        'port': "1729",
-        'database': "pm_4",
-        'gQuery': gquery
+        "url": os.environ.get('TYPEDB_HOST', 'localhost'),
+        "port": os.environ.get('TYPEDB_PORT', '1729'),
+        "database": os.environ.get('TYPEDB_DB', 'pm_4'),
+        "gQuery": gquery
       }
 
 

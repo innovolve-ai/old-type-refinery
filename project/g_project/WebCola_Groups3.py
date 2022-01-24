@@ -4,17 +4,17 @@ import json
 from itertools import groupby 
 from operator import itemgetter
 import copy
-
+import os
 gquery = "match $a isa log, has logName $log; "	
 gquery += "$b isa event, has eventName $c;"    
 gquery += " $d (owner: $a, item: $b) isa trace, "
 gquery += " has traceId $t, has index $f;  get; "
 
 def_gConnect = {
-        'url': "localhost",
-        'port': "48555",
-        'keyspace': "pm_2",
-        'gQuery': gquery
+        "url": os.environ.get('TYPEDB_HOST', 'localhost'),
+        "port": os.environ.get('TYPEDB_PORT', '1729'),
+        "database": os.environ.get('TYPEDB_DB', 'pm_4'),
+        "gQuery": gquery
       }
 
 counter = 0
