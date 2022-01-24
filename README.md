@@ -1,5 +1,17 @@
 # GRAKN_REFINERY2
 
+## Setup Docker
+
+1. Download [docker desktop](https://www.docker.com/products/docker-desktop) and install it.
+2. In run folowing command:
+
+```bash
+echo [wsl2] >>~/.wslconfig
+echo memory=6GB >>~/.wslconfig
+```
+
+Update to match your system. roughly 50% of available memory is recommended.
+
 ## Run in docker
 
 ```powershell
