@@ -22,6 +22,16 @@ Open the browser and navigate to http://localhost:8080/login to view the site. F
 
 Open the browser and navigate to http://localhost:8081/ to view the mongo database.
 
+
+## Sample Query
+
+```
+match $a isa log, has logName 'L1';
+$b isa event, has eventName $c; 
+$d (owner: $a, item: $b) isa trace,
+has traceId $t, has index $f; offset 0; limit 100;"#  get;
+```
+
 ## Installation
 
 First pull repo into a directory
