@@ -1,5 +1,5 @@
 // Fetch.js
-var _apiHost = 'http://127.0.0.1:5000';
+var _apiHost = 'http://localhost:8080';
 
 async function request(url, params, method = 'GET') {
 
